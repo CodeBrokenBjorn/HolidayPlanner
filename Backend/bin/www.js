@@ -1,7 +1,8 @@
-const constM = require('../appHolContr');
+var express = require('express');
+const appp = require('../appHolContr');
 const http = require('http');
 const port = process.env.PORT || '8900';
-constM.set('port' , port);
+app.set('port' , port);
 
 const server = http.createServer(app);
 server.listen(port);
