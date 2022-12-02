@@ -1,25 +1,23 @@
-module.exports = (Sequelize, sequelize) => {
-    const user = sequelize.define("user",
+module.exports = (sequelize, Sequelize) => {
+
+    const User = sequelize.define("user",
     {
-        userName: {
+        UserName: {
             type: Sequelize.STRING
         },
-        passWord: {
-            type: Sequelize.VARCHAR
+        UserPassWord: {
+            type: Sequelize.STRING
         }, 
-        //To do this latter <======|||U poop |||-------------<<<<<< 
-        // passWord: {
-        //     type: Sequelize.VARCHAR
-        // },
-        // passWord: {
-        //     type: Sequelize.VARCHAR
-        // },
+        UserRating: {
+            type: Sequelize.STRING
+        },
     },
-        {
-            timestamps: false,
-            freezeTableName: true,
-            tableName: 'user'
-        }
+    {
+        timestamps: false,
+        freezeTableName: true,
+        tableName: 'user'
+    }
     );
-    return user;
-}
+
+    return User;
+};

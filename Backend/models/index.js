@@ -1,7 +1,7 @@
 const config = require("../config/config");
 const User = require("././user");
 
-const Sequelize = require("sequelize");
+const Sequelize = require("Sequelize");
 const sequelize = new Sequelize(
     config.DB,
     config.USER,
@@ -19,7 +19,16 @@ sequelize
     .catch(err => {
         console.error('Unable to connect to the database:', err);
     })
-    const db = {};
-    db.User = User(sequelize, Sequelize);
-    module.exports = db;
+
+
+const db = {};
+db.Sequelize = Sequelize;
+db.sequelize = sequelize; 
+db.user = User(sequelize, Sequelize);
+// test('Connection check if server is functional as inteded', () =>
+//     expect(
+//     )
+// )
+
+module.exports = db;
     

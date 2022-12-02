@@ -1,22 +1,64 @@
-const router = require('../routes/route'); 
+const router = require('../routes/user'); 
 const utilities = require('../utilities/utility');
 const db = require('../models');
+const express = require('express');
 const User = db.user; 
 
-getALL = async (req, res) => {
+getAll = async (req, res) => {
     const user = await User.findAll();
     res.status(200).json(user);
 }
-//Don't need this instead need find info
-// getByDesc = async (req, res)=> {
-//     const desc = req.params.value;
-//     try{
-//         const user = await User.findALL(
-//             {where: {desc}}
-//         )
-//     }
+getByUserName = async (req, res)=> {
 
-// }
+    const UserN = req.params.value;
+    try{
+        const user = await User.findAll(
+            {where:  { UserName: UserN}});
+        if(user.length== 0){
+            throw new Error("The Iteam Username has not been found Error");
+        }
+        res.status(200).json(user);
+        
+
+    } 
+    catch(error){
+        utilities.formatErrorResponse(res, 400, error.message);
+    }
+
+}
+getByPassWord = async(req, res) => {
+    const UserP = req.params.value;
+    try{
+        const user = await User.findAll(
+            {where: {UserPassWord: UserP}});
+        if(user.length == 0){
+            throw new Error("Unable to detect specific value");
+
+        }
+        res.status(200).json(user);
+    }
+    catch(error){
+        utilities.formatErrorResponse(res,400,error.message);
+    }
+}
+getByGetRating = async(req, res) => {
+    const UserRt = req.params.value;
+    try{
+        const user = await User.findAll(
+            {where: {UserRating: UserRt}});
+        if(user.length == 0){
+            throw new Error("Unable to find the ratings value");
+
+        }
+        res.status(200).json(user);
+
+        
+    }
+    catch(error){
+        utilities.formatErrorResponse(res,400,error.message);
+
+    }
+}
 getById = async (req, res) => {
     const id = req.params.id;
     try{
@@ -32,4 +74,7 @@ getById = async (req, res) => {
 
     }
 }
-module.exports = {getAll, getById};
+test('Connection check if server is functional as inteded', () =>
+    expect()
+)
+module.exports = {getAll, getByUserName, getByPassWord ,getByGetRating,getById};
