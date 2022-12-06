@@ -18,8 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": 
-    "const result = spawn.sync('node', [require.resolve('../scripts/' + script)].concat(args), { stdio: 'inherit'}",
+    "test": "const result = spawn.sync('node', [require.resolve('../scripts/' + script)].concat(args), { stdio: 'inherit'}",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
