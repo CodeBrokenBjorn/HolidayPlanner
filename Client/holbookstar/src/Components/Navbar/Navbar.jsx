@@ -26,7 +26,7 @@ function NavigationBar() {
           </span>
           <span>
             <Model />
-          
+            
             {/* <h2 style={{ color: "white" }}>Example login goes here</h2> */}
           </span>
         </Container>

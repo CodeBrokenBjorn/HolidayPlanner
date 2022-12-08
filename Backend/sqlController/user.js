@@ -10,10 +10,10 @@ getAll = async (req, res) => {
 }
 getByUserName = async (req, res)=> {
 
-    const UserN = req.params.value;
+    const Username = req.params.value;
     try{
         const user = await User.findAll(
-            {where:  { UserName: UserN}});
+            {where:  { Username: Username}});
         if(user.length== 0){
             throw new Error("The Iteam Username has not been found Error");
         }
@@ -27,10 +27,10 @@ getByUserName = async (req, res)=> {
 
 }
 getByPassWord = async(req, res) => {
-    const UserP = req.params.value;
+    const Password = req.params.value;
     try{
         const user = await User.findAll(
-            {where: {UserPassWord: UserP}});
+            {where: {Password: Password}});
         if(user.length == 0){
             throw new Error("Unable to detect specific value");
 

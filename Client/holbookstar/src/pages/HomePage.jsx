@@ -3,6 +3,7 @@ import "../App.css";
 import "./HomePage.css";
 import bgFile from "../image/Subb.png";
 import Container  from 'react-bootstrap/Container';
+import Hero from "../Components/Hero";
 
 function HomePage() {
   return (
@@ -10,7 +11,9 @@ function HomePage() {
       <div className="p-7 text-center bg-image backgroundSize: cover">
         {/*HERO*/}
         <Container fluid>
-          <img src={bgFile} alt="background" />
+
+          <Hero />
+          {/* <img src={bgFile} alt="background" /> */}
         </Container>
         <div className="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}>
           <div className="d-flex justify-content-center h-100">

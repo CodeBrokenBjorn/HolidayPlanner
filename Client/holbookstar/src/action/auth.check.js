@@ -1,10 +1,19 @@
 import axios from "axios";
-const API_URL = "https://localhost:8080";
+const API_URL = "https://localhost:8900";
 
-class AuthCheck {
+class AuthCheck{
+
+    constructor(username, password){
+        this.state ={
+            username: username,
+            password: password
+        }
+
+        this.login = this.login.bind(this);
+    }
     login(username, password) {
         return axios
-        .post(API_URL + "SignIn", {
+        .post(API_URL + "/login", {
             username,
             password
         })
@@ -13,7 +22,7 @@ class AuthCheck {
                 localStorage.setItem("user" , JSON.stringify(response.data));
 
             }
-            return response.data;
+            return console.log(response.data);
 
         });
 
@@ -25,5 +34,11 @@ class AuthCheck {
     getCurrentUser() {
         return JSON.parse(localStorage.getItem('user'));;
     }
+
+    render(){
+        return(
+            this.props.login(this.username, this.password)
+        )
+    }
 }
-export default new AuthCheck();
+export default AuthCheck;
