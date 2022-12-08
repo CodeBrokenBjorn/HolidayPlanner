@@ -20,7 +20,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts start\" \"cd Backend && nodemon server\"",
+    "start": "react-scripts start",
+    "start-both": "concurrently \"react-scripts start\" \"cd Backend && nodemon server\"",
     "build": "react-scripts build",
     "test": "const result = spawn.sync('node', [require.resolve('../scripts/' + script)].concat(args), { stdio: 'inherit'}",
     "eject": "react-scripts eject"

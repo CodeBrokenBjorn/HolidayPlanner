@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 //Navigation bar
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import ContentPage from './pages/contentPage';
+import ContentPage from './pages/ContentPage';
 import HomePage from './pages/HomePage';
 import Navbar from './Components/Navbar'
 // import { Container } from 'react-bootstrap';

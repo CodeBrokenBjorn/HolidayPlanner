@@ -1,15 +1,14 @@
 import React from "react";
-import "./contentPage.css";
+import "./ContentPage.css";
 import Hero from "../Components/Hero";
 import Grid from "../Components/Grid";
+import useLoginHook from "../action/useLoginHook";
 
-function contentPage() {
-
+function ContentPage() {
     return (<div className='contentPage'>
- 
         <Grid />
     </div>
     );
   }
   
-  export default contentPage;
+  export default ContentPage;
