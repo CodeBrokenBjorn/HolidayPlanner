@@ -6,7 +6,7 @@ const isTesting = true;
 
 const useLoginHook = () => {
   const [user, setUser] = useState({});
-
+  //check if the user exist
   const checkIfUserExist = () => !!localStorage.getItem("user");
   // true -> false
   // !true = false
@@ -26,6 +26,9 @@ const useLoginHook = () => {
     }
     //Need to look at this: UseEFFect for testing
     if(checkIfUserExist) {
+      //set premision key here
+      //have a aray that check roles
+      
       const localUser = localStorage.getItem('user');
       return setUser(localUser);
     }

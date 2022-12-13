@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Row, Col, Container, ListGroup, Badge, Card } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Container,
+  ListGroup,
+  Badge,
+  Card,
+  Carousel,
+} from "react-bootstrap";
 import "./grid.css";
 import wallpaper2 from "../../image/wallpaper2.png";
 import { TextField } from "@mui/material";
@@ -40,12 +48,12 @@ function Grid() {
     setCards([...cards, newCard]);
     setTitle("");
     setBody("");
-  }
+  };
 
   const deleteCard = (index) => {
     const newCards = [...cards.slice(0, index), ...cards.slice(index + 1)];
     setCards(newCards);
-  }
+  };
 
   return (
     <Container fluid="md">
@@ -53,9 +61,19 @@ function Grid() {
         <div className="md-2 p-2">
           <Row justify-content-md-center>
             <Col xs lg="2">
-              <input type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
-              <input type="text" onChange={(e) => setBody(e.target.value)} value={body} />
-              <button onClick={addNewCard} disabled={!title || !body}>Add Card</button>
+              <input
+                type="text"
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+              />
+              <input
+                type="text"
+                onChange={(e) => setBody(e.target.value)}
+                value={body}
+              />
+              <button onClick={addNewCard} disabled={!title || !body}>
+                Add Card
+              </button>
               <div className="search">
                 <TextField
                   id="outline-basic"
@@ -64,6 +82,7 @@ function Grid() {
                   label="Search"
                 />
               </div>
+              
               {/* <ListGroup as = "ol" numbered>
                             <div className="d-flex flex-row bd-highlight mb-3">
 
@@ -101,20 +120,31 @@ function Grid() {
                 const { title, body, list, images } = card;
 
                 return (
-                  <Card>
-                    {images.map((image) => (
-                      <Card.Img variant="left" src={image} />
-                    ))}
-                    <Card.Body>
-                      <Card.Title>{title} <button onClick={() => deleteCard(index)}>DELETE</button> </Card.Title>
-                      <Card.Text>{body}</Card.Text>
-                    </Card.Body>
-                    <ListGroup className="list-group-flush">
-                      {list.map(({text: listItem}) => (
-                        <ListGroup.Item> {listItem} </ListGroup.Item>
-                      ))}
-                    </ListGroup>
-                  </Card>
+                  <div className="d-flex flex-row mb-4">
+               
+                      <Container>
+                        <Card>
+                          {images.map((image) => (
+                            <Card.Img variant="left" src={image} />
+                          ))}
+                          <Card.Body>
+                            <Card.Title>
+                              {title}{" "}
+                              <button onClick={() => deleteCard(index)}>
+                                DELETE
+                              </button>{" "}
+                            </Card.Title>
+                            <Card.Text>{body}</Card.Text>
+                          </Card.Body>
+                          <ListGroup className="list-group-flush">
+                            {list.map(({ text: listItem }) => (
+                              <ListGroup.Item> {listItem} </ListGroup.Item>
+                            ))}
+                          </ListGroup>
+                        </Card>
+                      </Container>
+               
+                  </div>
                 );
               })}
 
