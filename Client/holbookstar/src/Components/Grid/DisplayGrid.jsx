@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Row,
   Col,
@@ -8,10 +8,15 @@ import {
   Card,
   Carousel,
 } from "react-bootstrap";
-import "./grid.css";
+import { Grid, item, unstable_composeClasses } from "@mui/material";
+import "./DisplayGrid.css";
 import wallpaper2 from "../../image/wallpaper2.png";
 import { TextField } from "@mui/material";
-function Grid() {
+import { Box, Stack } from "@mui/system";
+import axios from "axios";
+function DisplayGrid() {
+  const BACKEND_PATH = "https://localhost:8900";
+  const [stuff, setStuff] = useState({});
   const [cards, setCards] = useState([
     {
       card: {
@@ -45,9 +50,54 @@ function Grid() {
         ],
       },
     };
+    /*     setCards([...cards, newCard]);
+    setStuff([...cards, newCard]);
+    userSave().then(() => {
+      setTitle("");
+      setBody("");
+    }); */
+
     setCards([...cards, newCard]);
+    postNewCard(newCard);
+
     setTitle("");
     setBody("");
+
+    //don't need it now
+    //
+    // setTitle("");
+    //setBody("");
+  };
+
+  function postNewCard(newCard) {
+    if (!newCard) return;
+
+    return axios
+      .post(`${BACKEND_PATH}/useBook`, { data: JSON.stringify(newCard) })
+      .then((response) => response)
+      .catch((error) => console.error(error));
+  }
+
+  const userSave = async () => {
+    const checkIfContentExist = () => !!localStorage.getItem("cards");
+    console.log("Test");
+
+    if (checkIfContentExist) {
+      const localStorageUser = localStorage.getItem("cards");
+      debugger;
+      return setStuff(localStorageUser);
+    }
+    return axios
+      .post(`${BACKEND_PATH}/useBook`, { title, body })
+      .then((response) => {
+        if (response.data && response.data.accessToken) {
+          localStorage.setItem("stuff", response.data);
+          stuff(response.data);
+        } else {
+          throw Error("no access token");
+        }
+      })
+      .catch((err) => console.warn(err));
   };
 
   const deleteCard = (index) => {
@@ -57,33 +107,47 @@ function Grid() {
 
   return (
     <Container fluid="md">
-      <div className="d-flex flex-row mb-2">
+      <div className="mb-2">
         <div className="md-2 p-2">
-          <Row justify-content-md-center>
-            <Col xs lg="2">
-              <input
-                type="text"
-                onChange={(e) => setTitle(e.target.value)}
-                value={title}
-              />
-              <input
-                type="text"
-                onChange={(e) => setBody(e.target.value)}
-                value={body}
-              />
-              <button onClick={addNewCard} disabled={!title || !body}>
-                Add Card
-              </button>
-              <div className="search">
-                <TextField
-                  id="outline-basic"
-                  variant="outlined"
-                  fullWidth
-                  label="Search"
-                />
-              </div>
-              
-              {/* <ListGroup as = "ol" numbered>
+          <div className="p-2">
+            <Stack direction="row" justifyContent="end">
+              <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing>
+                  <Grid item xs="auto">
+                    <item>
+                      <input
+                        type="text"
+                        onChange={(e) => setTitle(e.target.value)}
+                        value={title}
+                      />
+                    </item>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <input
+                      type="text"
+                      onChange={(e) => setBody(e.target.value)}
+                      value={body}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <button onClick={addNewCard} disabled={!title || !body}>
+                      Add Card
+                    </button>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Stack>
+          </div>
+          <div className="search">
+            <TextField
+              id="outline-basic"
+              variant="outlined"
+              fullWidth
+              label="Search"
+            />
+          </div>
+
+          {/* <ListGroup as = "ol" numbered>
                             <div className="d-flex flex-row bd-highlight mb-3">
 
 
@@ -115,14 +179,18 @@ function Grid() {
                             </ListGroup.Item>
                             </div>
                         </ListGroup> */}
+                        
+          <div className="d-flex flex-row md-5">
 
-              {cards.map(({ card }, index) => {
-                const { title, body, list, images } = card;
+          {cards.map(({ card }, index) => {
+            const { title, body, list, images } = card;
 
-                return (
-                  <div className="d-flex flex-row mb-4">
-               
-                      <Container>
+            return (
+              
+                <div className="p-5">
+                  <Container fluid="md">
+                    <Row className="justify-content-md-center">
+                      <Col xs lg="6">
                         <Card>
                           {images.map((image) => (
                             <Card.Img variant="left" src={image} />
@@ -142,13 +210,16 @@ function Grid() {
                             ))}
                           </ListGroup>
                         </Card>
-                      </Container>
-               
-                  </div>
-                );
-              })}
+                      </Col>
+                    </Row>
+                  </Container>
+                </div>
+              
+            );
+          })}
 
-              {/*               <Card style={{ width: "18rem" }}>
+          </div>
+          {/*               <Card style={{ width: "18rem" }}>
                 <Card.Img variant="left" src={wallpaper2} />
                 <Card.Body>
                   <Card.Title>Title goes here</Card.Title>
@@ -160,14 +231,9 @@ function Grid() {
                   <ListGroup.Item>Stuff</ListGroup.Item>
                 </ListGroup>
               </Card> */}
-            </Col>
-            <Col xs lg="2">
-              Test content stuff goes here
-            </Col>
-          </Row>
         </div>
       </div>
     </Container>
   );
 }
-export default Grid;
+export default DisplayGrid;

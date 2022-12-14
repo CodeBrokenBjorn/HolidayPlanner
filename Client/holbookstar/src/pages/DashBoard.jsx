@@ -42,13 +42,13 @@ function DashBoard() {
       }
       setTableRow([...tableRow, data]);
       <tbody>
-        {
+        {/* {
           tableRow.map((data)=> {
-            return(
+            return( 
         
             )
           })
-        }
+        } */}
       </tbody>
 
       return[data];
@@ -76,7 +76,7 @@ function DashBoard() {
         </thead>
         <tbody>
           <tr>
-          
+{/*           
             <td>{tableRow.map((data) =>(<tr
             >
               <td>{data.id}</td>
@@ -84,7 +84,7 @@ function DashBoard() {
 
             </tr>))}
             
-              </td>
+              </td> */}
           </tr> 
           
         </tbody>
