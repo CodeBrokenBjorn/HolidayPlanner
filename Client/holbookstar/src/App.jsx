@@ -6,6 +6,7 @@ import ContentPage from './pages/ContentPage';
 import HomePage from './pages/HomePage';
 import DashBoard from './pages/DashBoard';
 import Navbar from './Components/Navbar'
+import SearchPage from './pages/SearchPage';
 // import { Container } from 'react-bootstrap';
 // Can add this in future
 // Container(contentProps) {
@@ -31,6 +32,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path='dashboard' element={<DashBoard user={user} />} />
           <Route path='content' element={<ContentPage />} />
+          <Route path='Search' element={<SearchPage/>} />
         </Routes>
       </Router> 
       </div>

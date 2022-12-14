@@ -19,7 +19,7 @@ function NavigationBar() {
               <Nav className="me-auto">
                 <Nav.Link href="#home">Home</Nav.Link>
                 <Nav.Link href="dashboard">DashBoard</Nav.Link>
-                <Nav.Link href="#features">Booking</Nav.Link>
+                <Nav.Link href="Search">View Locations</Nav.Link>
                 <Nav.Link href="#contact">Contact us</Nav.Link>
                 <Nav.Link href="content">Content</Nav.Link>
               </Nav>

@@ -14,9 +14,9 @@ import wallpaper2 from "../../image/wallpaper2.png";
 import { TextField } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import axios from "axios";
+
 function DisplayGrid() {
   const BACKEND_PATH = "https://localhost:8900";
-  const [stuff, setStuff] = useState({});
   const [cards, setCards] = useState([
     {
       card: {
@@ -84,15 +84,14 @@ function DisplayGrid() {
 
     if (checkIfContentExist) {
       const localStorageUser = localStorage.getItem("cards");
-      debugger;
-      return setStuff(localStorageUser);
+      return setCards(localStorageUser);
     }
     return axios
       .post(`${BACKEND_PATH}/useBook`, { title, body })
       .then((response) => {
         if (response.data && response.data.accessToken) {
-          localStorage.setItem("stuff", response.data);
-          stuff(response.data);
+          localStorage.setItem("cards", response.data);
+          cards(response.data);
         } else {
           throw Error("no access token");
         }
@@ -138,15 +137,6 @@ function DisplayGrid() {
               </Box>
             </Stack>
           </div>
-          <div className="search">
-            <TextField
-              id="outline-basic"
-              variant="outlined"
-              fullWidth
-              label="Search"
-            />
-          </div>
-
           {/* <ListGroup as = "ol" numbered>
                             <div className="d-flex flex-row bd-highlight mb-3">
 
