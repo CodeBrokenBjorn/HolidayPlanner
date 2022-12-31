@@ -22,7 +22,7 @@ function Model(props) {
     // newAuthCheck.login();
   }
 // reminder not to add class
-  const Authaticatipn = async (e) => {
+  const AuthCheck = async (e) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:8900/login", {

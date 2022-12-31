@@ -8,15 +8,17 @@ import {
   Card,
   Carousel,
 } from "react-bootstrap";
-import { Grid, item, unstable_composeClasses } from "@mui/material";
+import { Grid } from "@mui/material";
 import "./DisplayGrid.css";
 import wallpaper2 from "../../image/wallpaper2.png";
 import { TextField } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import axios from "axios";
+import ModelDisplay from "../../Model/ModelDisplay";
 function DisplayGrid() {
-  const BACKEND_PATH = "https://localhost:8900";
-  const [stuff, setStuff] = useState({});
+  const BACKEND_PATH = "http://localhost:8900/";
+  const [stuff, setStuff] = useState([]);
+
   const [cards, setCards] = useState([
     {
       card: {
@@ -35,11 +37,19 @@ function DisplayGrid() {
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [id, setId] = useState("");
+  const [updateTitle, setUpdateTitle] = useState("");
+  const [updateBody, setUpdateBody] = useState("");
+  const [lastID, setLastID] = useState(0);
+  const addNewCard = (event, counter) => {
+    event.preventDefault();
+    if(!title || !body) {
+      return;
+    }
 
-  const addNewCard = () => {
     const newCard = {
       card: {
-        id: 1,
+        id: counter,
         title: title,
         images: [wallpaper2],
         body: body,
@@ -56,10 +66,11 @@ function DisplayGrid() {
       setTitle("");
       setBody("");
     }); */
-
+    //cards and newlink stored at one
     setCards([...cards, newCard]);
-    postNewCard(newCard);
-
+    console.log("Bob");
+    postNewCard(newCard, counter);
+    setId("");
     setTitle("");
     setBody("");
 
@@ -70,40 +81,101 @@ function DisplayGrid() {
   };
 
   function postNewCard(newCard) {
+    
     if (!newCard) return;
+    const addCard = {
+      id: null,
+      text: newCard,
+    };
 
+    const storedContent = JSON.stringify(localStorage.setItem("cards" , cards)) || [];
+    console.log(storedContent);
+
+    const updateCards = [...storedContent, addCard];
     return axios
-      .post(`${BACKEND_PATH}/useBook`, { data: JSON.stringify(newCard) })
-      .then((response) => response)
+      .post(`${BACKEND_PATH}useBook`, { data: JSON.stringify(updateCards) })
+      .then((response) => storedContent.response)
       .catch((error) => console.error(error));
-  }
+  };
 
-  const userSave = async () => {
-    const checkIfContentExist = () => !!localStorage.getItem("cards");
-    console.log("Test");
+  // const userSave = async () => {
+  //   const checkIfContentExist = () => !!localStorage.getItem("cards");
+  //   console.log("Test");
 
-    if (checkIfContentExist) {
-      const localStorageUser = localStorage.getItem("cards");
-      debugger;
-      return setStuff(localStorageUser);
-    }
+  //   if (checkIfContentExist) {
+  //     const localStorageUser = localStorage.getItem("cards");
+  //     debugger;
+  //     return setStuff(localStorageUser);
+  //   }
+  //   return axios
+  //     .post(`${BACKEND_PATH}/useBook`, { title, body })
+  //     .then((response) => {
+  //       if (response.data && response.data.accessToken) {
+  //         storedContent = localStorage.setItem("stuff", response.data);
+  //         stuff(response.data);
+  //       } else {
+  //         throw Error("no access token");
+  //       }
+  //     })
+  //     .catch((err) => console.warn(err));
+  // };
+
+  const deleteCard = (index) => {
+    const newCards = [...cards.slice(0, index), ...cards.slice(index + 1)];
     return axios
-      .post(`${BACKEND_PATH}/useBook`, { title, body })
+      .delete(`${BACKEND_PATH}useBook`, { id, title, body })
       .then((response) => {
-        if (response.data && response.data.accessToken) {
-          localStorage.setItem("stuff", response.data);
-          stuff(response.data);
-        } else {
-          throw Error("no access token");
-        }
+        window.localStorage.delete("cards", response.data);
+        setCards(newCards);
+        window.location.reload();
       })
       .catch((err) => console.warn(err));
   };
 
-  const deleteCard = (index) => {
-    const newCards = [...cards.slice(0, index), ...cards.slice(index + 1)];
-    setCards(newCards);
+  const updateCard = (newCard, index) => {
+    //I have no  idea what me is doing
+    // const findCard = cards.findIndex((index) => index.id === (index + 1));
+    // const updateCards = [...cards];
+    //   updateCards[findCard] = {
+    //     ...cards[findCard],
+    //     title: updateTitle,
+    //     body: updateBody,
+    //   };
+    // setCards(updateCards);]
+    let newCards = cards;
+    newCards[index] = newCards;
+    cards = newCards;
+
+    // const findCard = cards.map((card, i)=> {
+    //   if(i === index) {
+    //     return {
+    //       ...card,
+    //       title: updateTitle,
+    //       body: updateBody,
+    //     };
+    //   }
+    //   return card;
+    // });
+    // console.log(findCard);
+    // setCards(findCard);
   };
+
+  useEffect(() => {
+    const storeCards = window.localStorage.getItem(
+      "cards",
+      JSON.stringify(cards)
+    );
+    if (storeCards) {
+      setStuff(storeCards);
+    }
+
+    localStorage.getItem("cards", cards);
+    console.log(cards);
+    // return axios
+    // .get(`${BACKEND_PATH}useBook`, { data: JSON.stringify(cards) })
+    // .then((response) => storedContent.response)
+    // .catch((error) => console.error(error));
+  }, [cards]);
 
   return (
     <Container fluid="md">
@@ -112,6 +184,30 @@ function DisplayGrid() {
           <div className="p-2">
             <Stack direction="row" justifyContent="end">
               <Box sx={{ flexGrow: 1 }}>
+                <Grid item xs="auto">
+                  <item>
+                    <input
+                      type="text"
+                      onChange={(e) => setUpdateTitle(e.target.value)}
+                      value={updateTitle}
+                    />
+                  </item>
+                </Grid>
+                <Grid item xs={6}>
+                  <input
+                    type="text"
+                    onChange={(e) => setUpdateBody(e.target.value)}
+                    value={updateBody}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <button
+                    onClick={updateBody}
+                    disabled={!updateTitle || !updateBody}
+                  >
+                    Update Card
+                  </button>
+                </Grid>
                 <Grid container spacing>
                   <Grid item xs="auto">
                     <item>
@@ -122,6 +218,7 @@ function DisplayGrid() {
                       />
                     </item>
                   </Grid>
+
                   <Grid item xs={6}>
                     <input
                       type="text"
@@ -138,14 +235,15 @@ function DisplayGrid() {
               </Box>
             </Stack>
           </div>
-          <div className="search">
+          {/* Move to new page */}
+          {/* <div className="search">
             <TextField
               id="outline-basic"
               variant="outlined"
               fullWidth
               label="Search"
             />
-          </div>
+          </div> */}
 
           {/* <ListGroup as = "ol" numbered>
                             <div className="d-flex flex-row bd-highlight mb-3">
@@ -179,46 +277,42 @@ function DisplayGrid() {
                             </ListGroup.Item>
                             </div>
                         </ListGroup> */}
-                        
-          <div className="d-flex flex-row md-5">
+          <Carousel className="carousel-design" interval={6000}>
+            {cards.map(({ card }, index) => {
+              const { title, body, list, images } = card;
 
-          {cards.map(({ card }, index) => {
-            const { title, body, list, images } = card;
-
-            return (
-              
-                <div className="p-5">
-                  <Container fluid="md">
-                    <Row className="justify-content-md-center">
-                      <Col xs lg="6">
-                        <Card>
-                          {images.map((image) => (
-                            <Card.Img variant="left" src={image} />
-                          ))}
-                          <Card.Body>
-                            <Card.Title>
-                              {title}{" "}
+              return (
+                <Carousel.Item>
+                  <div className="p-5">
+                    <Container fluid="md">
+                      <Row className="justify-content-md-center">
+                        <Col xs lg="6">
+                          <Card>
+                            {images.map((image) => (
+                              <Card.Img variant="left" src={image} />
+                            ))}
+                            <Card.Body>
+                              <Card.Title>{title} </Card.Title>
+                              <Card.Text>{body}</Card.Text>
                               <button onClick={() => deleteCard(index)}>
                                 DELETE
                               </button>{" "}
-                            </Card.Title>
-                            <Card.Text>{body}</Card.Text>
-                          </Card.Body>
-                          <ListGroup className="list-group-flush">
-                            {list.map(({ text: listItem }) => (
-                              <ListGroup.Item> {listItem} </ListGroup.Item>
-                            ))}
-                          </ListGroup>
-                        </Card>
-                      </Col>
-                    </Row>
-                  </Container>
-                </div>
-              
-            );
-          })}
-
-          </div>
+                              <button onClick={updateCard}>UPDATE</button>{" "}
+                            </Card.Body>
+                            <ListGroup className="list-group-flush">
+                              {list.map(({ text: listItem }) => (
+                                <ListGroup.Item> {listItem} </ListGroup.Item>
+                              ))}
+                            </ListGroup>
+                          </Card>
+                        </Col>
+                      </Row>
+                    </Container>
+                  </div>
+                </Carousel.Item>
+              );
+            })}
+          </Carousel>
           {/*               <Card style={{ width: "18rem" }}>
                 <Card.Img variant="left" src={wallpaper2} />
                 <Card.Body>

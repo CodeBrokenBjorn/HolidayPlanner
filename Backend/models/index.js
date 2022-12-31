@@ -1,6 +1,7 @@
 const config = require("../config/config");
-const User = require("././user");
-
+const Login = require("././login");
+const UseBook = require("././useBook");
+const Location = require("././location");
 const Sequelize = require("Sequelize");
 const sequelize = new Sequelize(
     config.DB,
@@ -24,7 +25,9 @@ sequelize
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize; 
-db.user = User(sequelize, Sequelize);
+db.login = Login(sequelize, Sequelize);
+db.useBook = UseBook(sequelize, Sequelize);
+db.location = Location(sequelize, Sequelize);
 // test('Connection check if server is functional as inteded', () =>
 //     expect(
 //     )

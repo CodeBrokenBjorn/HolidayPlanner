@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import ContentPage from './pages/ContentPage';
 import HomePage from './pages/HomePage';
-import DashBoard from './pages/DashBoard';
+import SearchHolBar from './pages/SearchHolBar';
 import Navbar from './Components/Navbar'
 // import { Container } from 'react-bootstrap';
 // Can add this in future
@@ -29,7 +29,7 @@ function App() {
       <Navbar />
       <Routes>
           <Route index element={<HomePage />} />
-          <Route path='dashboard' element={<DashBoard user={user} />} />
+          <Route path='Search' element={<SearchHolBar />} />
           <Route path='content' element={<ContentPage />} />
         </Routes>
       </Router> 

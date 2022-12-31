@@ -1,0 +1,168 @@
+
+.content{
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(59, 61, 61);
+    font-size: larger;
+    font-weight: 400;
+    padding: 8%;
+    border-radius: 4rem;
+}
+.mainItem{
+    width: 100%;
+    height: max-content;
+    padding: 6rem 1.5ren 3rem;
+    display: flex;
+    gap: 3rem;
+    flex-direction: column;
+
+}
+.info{
+    top: 5rem;
+    margin-left:8rem;
+
+}
+.info h1 {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+.planner {
+    position: relative;
+    padding: 4rem 2rem;
+    background: var(--grayColor);
+    border-radius: 4px;
+    gap: 4rem;
+    margin-top: 3rem;
+
+}
+/* .planner form{
+    display: flex;
+    align-items: center;
+    padding: 8px;
+} */
+/* .planner , form {
+    margin: 5%;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: flex;
+} */
+/* .planner row {
+    flex-direction: column;
+    gap: 6rem;
+    color: var(--textColor);
+    position: relative;
+    padding-top: 10px;
+    font-size: 13px;
+    font-weight: 400;
+    align-items: center;
+    margin:auto;
+} */
+.planner label{
+    display: block;
+    font-size: large;
+    color: rgb(70, 69, 69);
+    padding-bottom: 14px;
+    font-weight: 300;
+}
+.row {
+    margin: 15px;
+    padding-top: 5px;
+    padding-left: 25%;
+    padding-right: 25%;
+    font-size: 13px;
+    font-weight: 400;
+    align-items: center;
+    justify-content: center;
+}
+.row input{
+justify-content: center;
+   background: none;
+   border: none;
+   outline: none;
+   width: 100%;
+   font-size: 15px;
+   font-weight: 400;
+   
+}
+.info {
+
+    position:relative;
+    bottom: 8rem;
+    display: flex;
+    margin-right: 25%;
+    margin-left: 25%;
+    margin-top: 5%;
+    flex-direction:column ;
+    gap:7rem;
+
+}
+.CardContainer{
+    bottom: 0;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    display: flex;
+    gap: 5rem;
+    align-items: center;
+        
+
+}
+.Cardsrow {
+    margin-bottom: 30%;
+    padding: 2rem, 1rem;
+    background: var(--grayColor);
+    border-top:5px solid;
+    border-bottom: 5px solid;
+    
+}
+.row label {
+    padding: 3%;
+}
+
+.cotaninerAbout {
+    margin: 4rem 6rem;
+
+}
+.cotaninerAbout h1 {
+    font-size: 3rem;
+
+}
+.text-content { 
+    width: 45%;
+    text-align: left;
+    font-size: 1.1rem;
+  }
+  
+  .text-content h2 {
+    padding-bottom: 1rem;
+  }
+  
+  .image-container {
+    position: relative;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .image-container img {
+    width: 50%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-sizing: border-box;
+    float: left;
+  }
+  
+  .image-container img:nth-child(2) {
+    float: right;
+    position: absolute;
+    top: -10%;
+    right: 0;
+  }
+  
+  @media screen and (max-width: 850px) {
+    .first-content {
+      margin: 4rem 2rem;
+    }
+  }

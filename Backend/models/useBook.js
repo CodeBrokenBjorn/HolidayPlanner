@@ -1,7 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
 
-    const userTable = sequelize.define("cards",
+    const UseBook = sequelize.define("useBook",
     {
+        id:{
+            type: Sequelize.INTEGER,
+            primaryKey:true,
+            field: 'id'
+        },
         title: {
             type: Sequelize.STRING
         },
@@ -15,10 +20,10 @@ module.exports = (sequelize, Sequelize) => {
     {
         timestamps: false,
         freezeTableName: true,
-        tableName: 'user'
+        tableName: 'useBook'
     }
     );
     
 
-    return userTable;
+    return UseBook;
 };
