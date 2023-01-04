@@ -33,7 +33,7 @@ function HomePage() {
             className="mask"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
           >
-          <HomeContent />
+                 <HomeContent />
           </div>
         </div>
       </div>

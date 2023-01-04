@@ -6,6 +6,7 @@ import ContentPage from './pages/ContentPage';
 import HomePage from './pages/HomePage';
 import SearchHolBar from './pages/SearchHolBar';
 import ContactPage from './pages/ContactPage';
+import CallenderPage from './pages/CallenderPage';
 import Navbar from './Components/Navbar'
 // import { Container } from 'react-bootstrap';
 // Can add this in future
@@ -32,6 +33,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path='Search' element={<SearchHolBar />} />
           <Route path='content' element={<ContentPage />} />
+          <Route path='Callender' element={<CallenderPage />} />
           <Route path='ContactPage' element={<ContactPage/> } />
         </Routes>
       </Router> 
