@@ -8,15 +8,27 @@ import {
   Card,
   Carousel,
 } from "react-bootstrap";
-import { Grid } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction, Grid } from "@mui/material";
 import "./DisplayGrid.css";
 import wallpaper2 from "../../image/wallpaper2.png";
 import { TextField } from "@mui/material";
 import { Box, Stack } from "@mui/system";
+// import {useDispatch, useSelector} from 'react-redux';
+import { fetchItemsOnRequest } from "../../action/retrieveAction";
 import axios from "axios";
 import ModelDisplay from "../../Model/ModelDisplay";
 function DisplayGrid() {
   const BACKEND_PATH = "http://localhost:8900/";
+  // const dispatch = useDispatch();
+  // const items = useSelector(state => state.items);
+  // const error = useSelector(state => state.error);
+
+  // useEffect(() => {
+  //   dispatch(fetchItemsOnRequest());
+  // }, []);
+
+
+  
   const [stuff, setStuff] = useState([]);
 
   const [cards, setCards] = useState([
@@ -49,7 +61,7 @@ function DisplayGrid() {
 
     const newCard = {
       card: {
-        id: counter,
+        id: id,
         title: title,
         images: [wallpaper2],
         body: body,
@@ -283,11 +295,11 @@ function DisplayGrid() {
 
               return (
                 <Carousel.Item>
-                  <div className="p-5">
+                  <div className="p-16">
                     <Container fluid="md">
                       <Row className="justify-content-md-center">
-                        <Col xs lg="6">
-                          <Card>
+                        <Col lg="6">
+                          <Card lg ={{maxWidth: 345 }}>
                             {images.map((image) => (
                               <Card.Img variant="left" src={image} />
                             ))}
@@ -304,6 +316,8 @@ function DisplayGrid() {
                                 <ListGroup.Item> {listItem} </ListGroup.Item>
                               ))}
                             </ListGroup>
+                           
+
                           </Card>
                         </Col>
                       </Row>
@@ -313,6 +327,28 @@ function DisplayGrid() {
               );
             })}
           </Carousel>
+
+            {/* improved version of it */}
+            {/* <Carousel>
+              <div className="bob">
+                {error &&<p>{error}</p>}
+                <ul>
+                  {items.map(item => (
+                    <li key={item.id}>{item.title}, {item.body}
+                    </li>  
+                  ))}
+                 
+                  
+                </ul>  
+                
+                
+              </div> 
+
+
+            </Carousel> */}
+
+
+
           {/*               <Card style={{ width: "18rem" }}>
                 <Card.Img variant="left" src={wallpaper2} />
                 <Card.Body>

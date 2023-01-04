@@ -9,6 +9,7 @@
 
 
 }
+
 @media (max-width: 600px) {
     .content-container {
         padding: 2em;
@@ -17,17 +18,19 @@
 
     }
 }
+
 .content-stuff {
     width: auto;
     margin: 2.3em 2;
     grid-row: inherit;
     justify-content: space-between;
     align-items: center;
-    
+
 
 }
-.content-stuff h1{
+
+.content-stuff h1 {
     font-family: 'Courier New', Courier, monospace;
- 
-    
+
+
 }
