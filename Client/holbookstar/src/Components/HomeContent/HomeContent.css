@@ -140,18 +140,21 @@ justify-content: center;
   
   .image-container {
     position: relative;
-    width: 50%;
+    width: 100%;
+    margin: 3.2rem 0;
     display: flex;
     justify-content: space-between;
+    
   }
   
   .image-container img {
     width: 50%;
     height: 350px;
-    object-fit: cover;
-    border-radius: 6px;
+    object-fit:cover;
+    border-radius: 8px;
     box-sizing: border-box;
-    float: left;
+    float: right;
+    margin-left: 50%;
   }
   
   .image-container img:nth-child(2) {
@@ -164,5 +167,6 @@ justify-content: center;
   @media screen and (max-width: 850px) {
     .first-content {
       margin: 4rem 2rem;
+
     }
   }

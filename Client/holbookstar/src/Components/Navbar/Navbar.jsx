@@ -20,7 +20,7 @@ function NavigationBar() {
                 <Nav.Link href="#home">Home</Nav.Link>
                 <Nav.Link href="Search">Booking</Nav.Link>
                 <Nav.Link href="#features">Booking</Nav.Link>
-                <Nav.Link href="#contact">Contact us</Nav.Link>
+                <Nav.Link href="ContactPage">Contact us</Nav.Link>
                 <Nav.Link href="content">Content</Nav.Link>
               </Nav>
             </Navbar.Collapse>
