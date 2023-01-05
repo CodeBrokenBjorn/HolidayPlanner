@@ -105,7 +105,7 @@ function DisplayGrid() {
 
     const updateCards = [...storedContent, addCard];
     return axios
-      .post(`${BACKEND_PATH}useBook`, { data: JSON.stringify(updateCards) })
+      .post(`${BACKEND_PATH}bookPlan`, { data: JSON.stringify(updateCards) })
       .then((response) => storedContent.response)
       .catch((error) => console.error(error));
   };
@@ -135,7 +135,7 @@ function DisplayGrid() {
   const deleteCard = (index) => {
     const newCards = [...cards.slice(0, index), ...cards.slice(index + 1)];
     return axios
-      .delete(`${BACKEND_PATH}useBook`, { id, title, body })
+      .delete(`${BACKEND_PATH}bookPlan`, { id, title, body })
       .then((response) => {
         window.localStorage.delete("cards", response.data);
         setCards(newCards);

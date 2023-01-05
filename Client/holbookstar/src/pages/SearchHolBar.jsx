@@ -10,18 +10,6 @@ function SearchHolBar(){
 
         return(
             <div className="SearchHolBar"> 
-            <input
-            type="text"
-            value={useSearch}
-            onChange={handelerSearch}/>
-            
-            <ul>
-                {data.map((item) => ( 
-                    
-                       <li key={item.id}>{item.title}</li>
-                    
-                ))}
-            </ul>
             <div className="stuff">
                     <Searchbar />
 
