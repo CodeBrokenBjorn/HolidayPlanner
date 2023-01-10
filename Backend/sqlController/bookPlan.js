@@ -118,7 +118,7 @@ update = async (req, res) => {
 }
 
 deleting = async (req, res) => {
-    const id = req.body.id;
+    const id = req.params.id;
     console.log(id);
     try{
         console.log("Test for the anyoing code");

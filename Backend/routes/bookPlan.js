@@ -9,7 +9,7 @@ router.get('/body/:value', controller.getByBody);
 router.get('/:id', controller.getById);
 
 router.post('/', controller.create);
-router.put('/', controller.update);
-router.delete('/', controller.deleting);
+router.put('/:id', controller.update);
+router.delete('/:id', controller.deleting);
 
 module.exports = router;

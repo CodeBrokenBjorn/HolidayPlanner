@@ -4,14 +4,14 @@ var router = express.Router();
 
 router.get('/', controller.getAll);
 router.get('/Destination/:value', controller.getByDestination);
-router.get('/body/:date', controller.getByDate);
-router.get('/body/:date', controller.getByEndDate);
-router.get('/body/:value', controller.getByAmount);
+router.get('/StartDate/:date', controller.getByStartDate);
+router.get('/EndDate/:date', controller.getByEndDate);
+router.get('/Amount/:value', controller.getByAmount);
 // router.get('/description/:value', controller.getByDescription);
 router.get('/:id', controller.getById);
 
 router.post('/', controller.create);
-router.put('/', controller.update);
-router.delete('/', controller.deleting);
+router.put('/:id', controller.update);
+router.delete('/:id', controller.deleting);
 
 module.exports = router;

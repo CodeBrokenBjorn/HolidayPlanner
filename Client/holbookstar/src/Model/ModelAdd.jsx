@@ -7,6 +7,7 @@ import { Box, style } from "@mui/system";
 
 function ModelAdd() {
   const [show, setShow] = useState(false);
+  const[retrieveContent, setRetrieveContent] = useState(false);
   const [succes, setSuccess] = useState(true);
   const [error, setError] = useState(null);
   const [id, setId] = useState(0);
@@ -40,6 +41,7 @@ function ModelAdd() {
       };
       console.log( "bob");
       submitModelData(items);
+      setRetrieveContent(true);
     } else {
       setError("All fields must contain a value!");
     }

@@ -57,7 +57,7 @@ getByAmount = async(req, res) => {
 //         utilities.formatErrorResponse(res,400,error.message);
 //     }
 // }
-getByDate = async(req, res) => {
+getByStartDate = async(req, res) => {
     const Date = req.params.date;
         try{
             const eventDater = await EventDater.findAll(
@@ -125,7 +125,7 @@ create = async (req, res) => {
     }
 }
 update = async (req, res) => {
-    const id = req.body.id;
+    const id = req.params.id;
     
     const eventDater = {
         Destination: req.body.Destination,
@@ -151,8 +151,7 @@ update = async (req, res) => {
 }
 
 deleting = async (req, res) => {
-    const id = req.body.id;
-    console.log(id);
+    const id = req.params.id;
     try{
         console.log("Test for the anyoing code");
         const deleted = await EventDater.destroy({where: { id : id}});
@@ -166,4 +165,4 @@ deleting = async (req, res) => {
     }
 }
 
-module.exports = {getAll, getByDestination, getByAmount, getByDate, getByEndDate , getById, create, update, deleting};
+module.exports = {getAll, getByDestination, getByAmount, getByStartDate, getByEndDate , getById, create, update, deleting};

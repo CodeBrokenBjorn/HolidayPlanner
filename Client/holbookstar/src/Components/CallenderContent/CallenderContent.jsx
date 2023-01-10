@@ -9,9 +9,14 @@ import {
 } from "../../action/submitDate";
 function CallenderContent() {
   const [locationQuery, setLocationQuery] = useState([]);
+  const [refreshPage, setRefreshPage] = useState(false); 
   const [selectedDate, setSelectedDate] = useState(null);
+
   const [events, setEvents] = useState([]);
   const [id, setId] = useState(0);
+  const[deleteItem, setDeleteItem] = useState(false);
+  const[updateItem, setUpdateItem] = useState(false);
+  const [selectDate, setSelectDate] = useState([]);
   const [queries, setQueries] = useState([]);
   const [destination, setDestination] = useState("");
   const [dateSelected, setdateSelected] = useState(false);
@@ -28,10 +33,11 @@ function CallenderContent() {
  
     
   };
-  const handleEventDelete = async (id) => {
+  const handleEventDelete = async (items) => {
     try {
-      console.log(id);
-      await deleteLocationDate(id);
+      console.log(items);
+      await deleteLocationDate(items.id);
+      setRefreshPage(true);
       const updateEvent = await retrieveLocationDate(locationQuery);
       setEvents(updateEvent);
     } catch (error) {
@@ -48,16 +54,14 @@ function CallenderContent() {
         title: data.Destination,
         start: data.Date,
         end: data.EndDate,
-        destination: data.Amount,
+        amount: data.Amount,
         // description: data.Destination, need grab from other notes
     }));
+    
     setLocationQuery(retrieveEvent);
-   
-      
-      console.log(locationQuery);
-      
+    setRefreshPage(false);
     });
-  }, []);
+  }, [refreshPage]);
 
   const CallenderQuery = {
     plugins: [dayGridPlugin, interactionPlugin],
@@ -70,19 +74,36 @@ function CallenderContent() {
     selectable: (id) => {
       return id.getDay() === 0 || id.getDay() === 6;
     },
+    eventContent:(items) => {
+      return(<>
+        <div className="fc-event-title">{items.event.title}</div>
+        <div className="fc-event-amount">{items.event.amount}</div>
+        
+      </>);
+    },
+    eventClick:(items) => {
+      setSelectDate(items.event);
+      
+      console.log(selectDate);
+      if(updateItem == true){
+
+      }
+    }
   };
   return (
     <div className="CallenderContainer">
       <div className="CallenderButton">
         {selectedDate ? (
-          <button onClick={handleEventDelete(id)}>Delete Selected Date</button>
-        ) : null}
+          <button onClick={handleEventDelete}>Delete Selected Date</button>
+         ) : null}
       </div>
 
       <div className="CallenderRow">
         <div className="CallenderWrapper">
+        <button onClick={(e) => handleEventDelete(selectDate)}>Delete Selected Date</button>
           <h2> Your Holiday Dates</h2>
           <FullCalendar height="700px" {...CallenderQuery} />
+
         </div>
       </div>
     </div>

@@ -18,6 +18,7 @@ import {
 import ModelAdd from "../../Model/ModelAdd";
 import ModelUpdate from "../../Model/ModelUpdate";
 function DisplayGrid() {
+  const[retrieveContent, setRetrieveContent] = useState(false);
   const [countThirunning, setCountThirunning] = useState();
   const [queryItems, setQueryItems] = useState([]);
   const [id, setId] = useState("");
@@ -27,13 +28,6 @@ function DisplayGrid() {
   function openModal (){
     setModalOpen(true);
   }
-  const newlist = {
-    items: {
-      id: id,
-      title: title,
-      body: body
-    },
-  };
   const handleSubmit =() => {
     async function collectData() {
       
@@ -48,7 +42,7 @@ function DisplayGrid() {
         console.log(items);
         
       });
-
+      
     }
     collectData();
   }
@@ -64,12 +58,13 @@ function DisplayGrid() {
         setQueryItems(items);
         //setCountThirunning([...countThirunning, newlist]);
         console.log(items);
+        setRetrieveContent(false);
         
       });
 
     }
     collectData();
-  }, []);
+  }, [retrieveContent]);
 
   return (
 
@@ -97,7 +92,7 @@ function DisplayGrid() {
                           <Card.Title>{title}</Card.Title>
                           <Card.Text>{body}</Card.Text>
                            
-                          <button onClick={(e) => deleteItems(index , queryItems.index)}>
+                          <button onClick={(e) => deleteItems(id , queryItems.id, setRetrieveContent(true))}>
                             DELETE
                           </button>{" "}
                           <Card.Text>
