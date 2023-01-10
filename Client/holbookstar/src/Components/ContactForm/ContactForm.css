@@ -1,0 +1,36 @@
+.content-container {
+    background-color: gray;
+    border: 5rem;
+    padding-top: 10%;
+    padding: 10em;
+    width: auto;
+    height: auto;
+    display: flexbox;
+
+
+}
+
+@media (max-width: 600px) {
+    .content-container {
+        padding: 2em;
+        border: 2rem;
+        display: absolute;
+
+    }
+}
+
+.content-stuff {
+    width: auto;
+    margin: 2.3em 2;
+    grid-row: inherit;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+
+.content-stuff h1 {
+    font-family: 'Courier New', Courier, monospace;
+
+
+}

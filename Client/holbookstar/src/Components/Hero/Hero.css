@@ -1,0 +1,33 @@
+img{
+    height: 600px;
+}
+.Carousel {
+   
+    position: relative;
+   
+}
+Carousel.Item {
+    object-fit: cover;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 50px;
+}
+.Carousel.Caption {
+    height: 32rem;
+    color: rgb(7, 7, 5);
+    width: auto;
+} 
+
+.Carousel.Item, img{
+   
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background:rgb(10, 3, 3);
+    
+    background-position: center;
+    background-size: cover;
+    opacity: 0.9;
+}

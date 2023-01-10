@@ -1,0 +1,18 @@
+.align-me {
+    display: flex;
+    
+}
+.carousel-design{
+    background-color: rgb(62, 65, 62);
+    color: rgb(17, 14, 14);
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    grid-gap: span 6;
+
+}
+.card {
+    grid-column:span 6 ;
+}

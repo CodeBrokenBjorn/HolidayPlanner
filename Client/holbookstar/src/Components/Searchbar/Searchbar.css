@@ -1,0 +1,36 @@
+.content{
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(59, 61, 61);
+    font-size: larger;
+    font-weight: 400;
+    padding: 8%;
+    border-radius: 4rem;
+}
+.mainItem{
+    width: 100%;
+    height: max-content;
+    padding: 6rem 1.5ren 3rem;
+    display: flex;
+    gap: 3rem;
+    flex-direction: column;
+
+}
+.info{
+    top: 5rem;
+    margin-left:8rem;
+
+}
+.info h1 {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+.planner {
+    position: relative;
+    padding: 4rem 2rem;
+    background: var(--grayColor);
+    border-radius: 4px;
+    gap: 4rem;
+    margin-top: 3rem;
+
+}
