@@ -1,33 +1,20 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
 import "./Searchbar.css";
 import { Button } from "react-bootstrap";
 import { filterItem } from "../../action/filterSearch";
 
 function Searchbar() {
     const[locationQuery, setLocationQuery] = useState([]);
+    const[id , setId] = useState("");
+    const[destination, setDestination] = useState("");
+    const[date, setDate] = useState("");
+    const[amount, setAmount] = useState(0);
 
 //  formatDefault = filterItem(DATAinput)
-    
-    useEffect(() => 
-        
-    )
+
 
 
     return(
-    //code example --->
-        // <input
-        //     type="text"
-        //     value={useSearch}
-        //     onChange={handelerSearch}/>
-            
-        //     <ul>
-        //         {data.map((item) => ( 
-                    
-        //                <li key={item.id}>{item.title}</li>
-                    
-        //         ))}
-        //     </ul>
         <div className="Searchbar">
               <div className="row-cover">
             <div className="row">
@@ -37,24 +24,24 @@ function Searchbar() {
                 <label htmlFor="city">Search your destination:
                 </label>
                 <div className="input flex">
-                    <input type ="text" placeholder="Enter your destination"value={filterItem.InputUser.location} />
+                    <input type ="text" placeholder="Enter your destination"value={"Stuff"} />
                 </div>
             </div>
             <div className="row">
                 <label>Check Offers</label>
-                <input type="date" value={setInputUser.date} />            
+                <input type="date" value={"stuff"} />            
             </div>
                 
             <div className="row">
             <label htmlFor="city">Search your destination:
                 </label>
                 <div className="input flex">
-                    <input type ="price" placeholder="How much money you planning to take" value={filterItem.setInputUser.amount} />
+                    <input type ="price" placeholder="How much money you planning to take" value={"stuff"} />
                 </div> 
             </div>
             <div className="button-row"> 
                 <div className="button-container">
-                    <Button variant="contained" onClick={filterItem.handleSubmit}>
+                    <Button variant="contained" onClick={"stuff"}>
                         Submit
                     </Button>
                 </div>

@@ -5,19 +5,12 @@ import "./SearchHolBar";
 import Searchbar from "../Components/Searchbar/Searchbar";
 
 function SearchHolBar(){
- 
-
-
         return(
             <div className="SearchHolBar"> 
             <div className="stuff">
                     <Searchbar />
-
             </div>
         </div>
-        
-
-
 
 );
 

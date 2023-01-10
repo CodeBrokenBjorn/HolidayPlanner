@@ -1,30 +1,34 @@
-// const location = require("./useBook");
-
 module.exports = (sequelize, Sequelize) => {
 
-    const BookPlan = sequelize.define("bookPlan",
+    const EventDater = sequelize.define("eventDater",
     {
         id:{
             type: Sequelize.INTEGER,
             primaryKey:true,
             field: 'id'
         },
-        title: {
+        Destination: {
             type: Sequelize.STRING
         },
-        body: {
-            type: Sequelize.STRING
+        Date: {
+            type: Sequelize.DATE
+        },
+        EndDate: {
+            type: Sequelize.DATE
+        },
+        Amount: {
+            type: Sequelize.INTEGER
         }, 
     },
     {
         timestamps: false,
         freezeTableName: true,
-        tableName: 'bookPlan'
+        tableName: 'eventDater'
     }
     );
 
     // Login.belongsTo(useBook,
     //     {foreignKey: 'useBook_id'});
 
-    return BookPlan;
+    return EventDater;
 };

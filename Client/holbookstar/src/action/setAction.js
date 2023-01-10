@@ -19,6 +19,11 @@ const addItems = async (items) => {
             return response.data;
         });
 }
+const updateItem = async(items) => {
+    try {
+        let response = await
+    }
+}
 // const updateItems = async (items) => {
 //     //first need create a update that will basicly update the the righ post do it as id
 
