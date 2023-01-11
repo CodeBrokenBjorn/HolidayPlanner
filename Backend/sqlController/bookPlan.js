@@ -7,6 +7,7 @@ const BookPlan = db.bookPlan;
 const fs = require('fs');
 const path = require('path');
 
+
 getAll = async (req, res) => {
     const bookPlan = await BookPlan.findAll();
     res.status(200).json(bookPlan);
@@ -43,6 +44,23 @@ getByBody = async(req, res) => {
     catch(error){
         utilities.formatErrorResponse(res,400,error.message);
     }
+}
+getByImage = async(req,res) => {
+    const images = req.params.value;
+    try{
+        const bookPlan = await BookPlan.findAll(
+            {where: {images: images}});
+        if(bookPlan.length == 0) {
+            throw new Error("Unable to find Image");
+
+        }
+        res.status(200).json(bookPlan);
+    }
+    catch(error){
+        utilities.formatErrorResponse(res,400,error.message);
+    }
+        
+    
 }
 
 getById = async (req, res) => {

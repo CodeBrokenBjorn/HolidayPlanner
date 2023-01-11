@@ -4,10 +4,10 @@ module.exports = (sequelize, Sequelize, bookPlan) => {
 
     const EventDater = sequelize.define("eventDater",
     {
-        eventDater_id:{
+        id:{
             type: Sequelize.INTEGER,
             primaryKey:true,
-            field: 'eventDater_id',
+            field: 'id',
 
         },
         Destination: {
@@ -30,6 +30,10 @@ module.exports = (sequelize, Sequelize, bookPlan) => {
     }
     );
     EventDater.belongsTo(bookPlan, 
-        {foreignKey: 'bookPlan_id'});
+        {foreignKey: `bookPlan_id`});
+
+
+
+        
     return EventDater;
 };

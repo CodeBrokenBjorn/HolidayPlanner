@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
         id:{
             type: Sequelize.INTEGER,
             primaryKey:true,
-            field: 'bookPlan_id'
+            field: 'id'
         },
         title: {
             type: Sequelize.STRING

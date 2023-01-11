@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import loginPep from "../image/loginPep.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import AuthCheck from "../action/auth.check";
+
 import useLoginHook from "../action/useLoginHook";
 
 function Model(props) {

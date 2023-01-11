@@ -22,7 +22,7 @@ return response;
     
 }
 const updateItems = async(items) => {
-    let response = await axios.patch(`${BACKEND_URL}bookPlan`, items, {
+    let response = await axios.put(`${BACKEND_URL}bookPlan`, items, {
         header: {
             'Content-Type': 'multipart/form-data'
         } 

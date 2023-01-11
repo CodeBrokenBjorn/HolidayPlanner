@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import "./Searchbar.css";
 import { Button } from "react-bootstrap";
-import { filterItem } from "../../action/filterSearch";
 import CallenderContent from "../CallenderContent/CallenderContent";
 import { addItems } from "../../action/setAction";
 function Searchbar() {
@@ -13,6 +12,7 @@ function Searchbar() {
     const[startDate, setStartDate] = useState("");
     const[endDate, setEndDate] = useState("");
     const[amount, setAmount] = useState(0);
+    const[bookPlan_id , setBookPlan_id] = useState("");
 
 //  formatDefault = filterItem(DATAinput)
     const postDataSubmitOnBackEnd = async(items) => {
@@ -39,6 +39,8 @@ function Searchbar() {
                 StartDate: startDate,
                 EndDate: endDate,
                 Amount: amount,
+                exclude: [bookPlan_id],
+        
 
             };
             postDataSubmitOnBackEnd(items);

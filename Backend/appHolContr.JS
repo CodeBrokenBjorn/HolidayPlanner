@@ -1,8 +1,5 @@
 const express = require('express');
 const logger = require('morgan');
-const loginRoute = require('./routes/login'); 
-const userBookRoute = require('./routes/useBook');
-const locationRoute = require('./routes/location');
 const bookPlanRoute = require('./routes/bookPlan');
 const eventDaterRoute = require('./routes/eventDater');
 const cors = require('cors');
@@ -13,9 +10,6 @@ app.use(express.json());
 app.use(logger('dev'));
 app.use(cors());
 
-app.use("/login", loginRoute);
-app.use("/useBook", userBookRoute);
-app.use("/location", locationRoute);
 app.use("/bookPlan", bookPlanRoute);
 app.use("/eventDater", eventDaterRoute);
 app.use((req, res )=>
