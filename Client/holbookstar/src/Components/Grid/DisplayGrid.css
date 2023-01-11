@@ -5,6 +5,11 @@
 .carousel-design{
     background-color: rgb(62, 65, 62);
     color: rgb(17, 14, 14);
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    overflow-x: scroll;
 }
 .container {
     display: grid;
@@ -15,4 +20,6 @@
 }
 .card {
     grid-column:span 6 ;
+    scroll-snap-align: start;
 }
+

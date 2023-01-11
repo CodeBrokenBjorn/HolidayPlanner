@@ -1,6 +1,6 @@
 import axios from "axios";
 const BACKEND_URL = 'http://localhost:8900/';
-const retrieveAllItems = async(items) =>
+const retrieveAllItems = async() =>
 {
     let response = await axios.get(`${BACKEND_URL}bookPlan`)
     .then(response => {return response.data;

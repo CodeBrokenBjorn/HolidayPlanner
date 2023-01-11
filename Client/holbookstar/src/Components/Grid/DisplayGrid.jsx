@@ -17,6 +17,7 @@ import {
 } from "../../action/submitModelAction";
 import ModelAdd from "../../Model/ModelAdd";
 import ModelUpdate from "../../Model/ModelUpdate";
+import { useRef } from "react";
 function DisplayGrid() {
   const[retrieveContent, setRetrieveContent] = useState(false);
   const [countThirunning, setCountThirunning] = useState();
@@ -25,9 +26,28 @@ function DisplayGrid() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const carousel = useRef();
+
   function openModal (){
     setModalOpen(true);
   }
+
+  function handleDelete(selected) {
+    setId(selected)
+    setRetrieveContent(true)
+    let temp = queryItems.filter(item => item.id !== selected);
+    setQueryItems(temp);
+    setCurrentSlide(currentSlide - 1);
+
+    deleteItems(selected)
+  }
+
+  const handleSelect = (selectedIndex, e) => {
+    setCurrentSlide(selectedIndex);
+  }
+
   const handleSubmit =() => {
     async function collectData() {
       
@@ -50,21 +70,14 @@ function DisplayGrid() {
     async function collectData() {
       
       retrieveAllItems().then((items) => {
-        if (!items) {
-          console.log(countThirunning + 1);
-          
-          
-        }
         setQueryItems(items);
-        //setCountThirunning([...countThirunning, newlist]);
-        console.log(items);
         setRetrieveContent(false);
         
       });
 
     }
     collectData();
-  }, [retrieveContent]);
+  }, [retrieveContent, queryItems.id]);
 
   return (
 
@@ -73,10 +86,8 @@ function DisplayGrid() {
       <h1>{queryItems.items}</h1>
       <ModelAdd />
     <Container fluid="md">
-      <Carousel className="carousel-design" interval={6000}>
+      <Carousel ref={carousel} activeIndex={currentSlide} onSelect={handleSelect} className="carousel-design">
         {queryItems.map(({id, title, body }, index) => {
-          
-          console.log(body);
           return (
             <Carousel.Item key={index}>
             <h3>{title}</h3>
@@ -92,7 +103,7 @@ function DisplayGrid() {
                           <Card.Title>{title}</Card.Title>
                           <Card.Text>{body}</Card.Text>
                            
-                          <button onClick={(e) => deleteItems(id , queryItems.id, setRetrieveContent(true))}>
+                          <button onClick={(e) => handleDelete(id, index)}>
                             DELETE
                           </button>{" "}
                           <Card.Text>

@@ -98,14 +98,14 @@ create = async (req, res) => {
     StartDate: req.body.StartDate,
     EndDate: req.body.EndDate,
     Amount: req.body.Amount,
-    bookPlan_Id: req.body.bookPlan_Id
+    bookPlan_id: req.body.bookPlan_id
   };
   try {
     if (eventDater.Destination == null || 
       eventDater.StartDate == null ||
        eventDater.EndDate == null || 
        eventDater.Amount == null || 
-       eventDater.bookPlan_Id == null) {
+       eventDater.bookPlan_id == null) {
       throw new Error("Esseinatial fields missing");
     }
     await EventDater.create(eventDater);

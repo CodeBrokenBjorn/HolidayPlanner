@@ -1,68 +1,46 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./ModelAdd.css";
-import { Modal, Container, Row, Col } from "react-bootstrap";
+import React, {useState, useEffect} from "react";
+import { Box, style} from "@mui/system";
+import {Modal, Container, Row, Col} from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { addNewItems, updateItems } from "../action/submitModelAction";
-import { Box, style } from "@mui/system";
-
-function ModelAdd() {
-  const [show, setShow] = useState(false);
-  const[retrieveContent, setRetrieveContent] = useState(false);
-  const[refresh, setRefresh] = useState(false);
-  const [succes, setSuccess] = useState(true);
-  const [error, setError] = useState(null);
-  const [id, setId] = useState(0);
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [image, setImage] = useState("");
-
-
-  const submitModelData = async (items) => {
-    try {
-      let response = await addNewItems(items);
-      if (response) {
-        setSuccess(true);
-    
-      }
-    } catch (e) {
-      setError(e.message);
-    }
-  };
-  const submitModelItems = (e) => {
-    setShow(false);
-    e.preventDefault();
-    setSuccess(false);
-    if (title && body) {
-      let items = {
-        id: id,
-        title: title,
-        body: body,
-        image: image,
+import { updateItems } from "../action/submitModelAction";
+function ModelUpdate() {
+    const [show, setShow] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState('');
+    const [id, setId] = useState(0);
+    const [title, setTitle] = useState("");
+    const [body, setBody] = useState("");
+    const [image, setImage] = useState("");
+    const updateModelItems = async (items, index) => {
+        try {
+          let response = await updateItems(items);
+          if (response) {
+            setSuccess(true);
+            submitUpdate(index);
+          }
+        } catch (e) {
+          setError(e.message);
+        }
       };
-      console.log( "bob");
-      submitModelData(items);
-      setRetrieveContent(true);
-    } else {
-      setError("All fields must contain a value!");
-    }
-  };
-  
+      const submitUpdate = (e) => {
+        e.preventDefault();
+        setSuccess(false);
+        if (id && title && body && image) {
+          let items = {
+            id: id,
+            title: title,
+            body: body,
+            image: image,
+          };
+          updateModelItems(items);
+        } else {
+          setError("All fields must contain a value!");
+        }
+      };
+    return (
+        <div className="ModelUpdate">
 
-  return (
-    <div className="modelWithings">
-      <div className="d-flex justify-content-center p-2">
-        <Button
-          variant="dark"
-          color="success"
-          size="lg"
-          onClick={() => setShow(true)}
-        >
-          Add Items
-        </Button>
-      </div>
-
-      {/* Modal goes here */}
-      <Modal
+        <Modal
         show={show}
         onHide={() => setShow(false)}
         dialogClassName="modal-90w"
@@ -116,7 +94,7 @@ function ModelAdd() {
                     <Button
                       variant="dark"
                       size="ls"
-                      onClick={submitModelItems} 
+                      onClick={submitUpdate}
                       disabled={!title || !body}
                     >
                       Add item
@@ -130,7 +108,11 @@ function ModelAdd() {
         </Modal.Body>
       </Modal>
     </div>
+
+
   );
 }
 
-export default ModelAdd;
+export default ModelUpdate;
+
+
