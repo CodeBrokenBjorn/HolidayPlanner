@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
         id:{
             type: Sequelize.INTEGER,
             primaryKey:true,
-            field: 'id'
+            field: 'bookPlan_id'
         },
         title: {
             type: Sequelize.STRING
@@ -15,6 +15,9 @@ module.exports = (sequelize, Sequelize) => {
         body: {
             type: Sequelize.STRING
         }, 
+        images: {
+            type: Sequelize.BLOB
+        },
     },
     {
         timestamps: false,
@@ -23,8 +26,6 @@ module.exports = (sequelize, Sequelize) => {
     }
     );
 
-    // Login.belongsTo(useBook,
-    //     {foreignKey: 'useBook_id'});
 
     return BookPlan;
 };

@@ -4,7 +4,8 @@ const db = require('../models');
 const express = require('express');
 const bookPlan = require('../models/bookPlan');
 const BookPlan = db.bookPlan; 
-
+const fs = require('fs');
+const path = require('path');
 
 getAll = async (req, res) => {
     const bookPlan = await BookPlan.findAll();
@@ -43,21 +44,6 @@ getByBody = async(req, res) => {
         utilities.formatErrorResponse(res,400,error.message);
     }
 }
-// getByDescription = async(req, res) => {
-//     const Description = req.params.value;
-//     try{
-//         const bookPlan = await BookPlan.findAll(
-//             {where: {Description: Description}});
-//         if(bookPlan.length == 0){
-//             throw new Error("Unable to detect specific value");
-
-//         }
-//         res.status(200).json(bookPlan);
-//     }
-//     catch(error){
-//         utilities.formatErrorResponse(res,400,error.message);
-//     }
-// }
 
 getById = async (req, res) => {
     const id = req.params.id;
@@ -67,7 +53,7 @@ getById = async (req, res) => {
             throw new Error("Error you can't find Users ID" + id);
 
         }
-        res.status(200).json(login);
+        res.status(200).json(bookPlan);
     }
     catch(error){
         utilities.formatErrorResponse(res,400, error.message);
@@ -80,10 +66,11 @@ getById = async (req, res) => {
 create = async (req, res) => {
     const bookPlan = {
         title: req.body.title,
-        body: req.body.body
+        body: req.body.body,
+        image: path.join('/public/images/', req.file.filename)
     };
     try{
-        if(bookPlan.title==null || bookPlan.body==null){
+        if(bookPlan.title==null || bookPlan.body==null || bookPlan.image==null){
             throw new Error("Esseinatial fields missing");
         }
         await BookPlan.create(bookPlan);
@@ -91,6 +78,7 @@ create = async (req, res) => {
     }
     catch(error){
         utilities.formatErrorResponse(res,400, error.message);
+        await fs.promises.unlink(req.file.path);
     }
 }
 update = async (req, res) => {

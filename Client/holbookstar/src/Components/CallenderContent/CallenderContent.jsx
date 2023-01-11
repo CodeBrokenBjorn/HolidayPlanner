@@ -5,6 +5,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import "./CallenderContent.css";
 import {
   retrieveLocationDate,
+  addDate,
   deleteLocationDate,
 } from "../../action/submitDate";
 function CallenderContent() {
@@ -52,12 +53,16 @@ function CallenderContent() {
       const retrieveEvent = items.map((data) => ({
         id: data.id,
         title: data.Destination,
-        start: data.Date,
+        start: data.StartDate,
         end: data.EndDate,
         amount: data.Amount,
         // description: data.Destination, need grab from other notes
     }));
+<<<<<<< HEAD
     
+=======
+    console.log(retrieveEvent);
+>>>>>>> 7a37a1b5ae797eabcdfa7805662f960a1537d07e
     setLocationQuery(retrieveEvent);
     setRefreshPage(false);
     });
@@ -71,9 +76,7 @@ function CallenderContent() {
     eventResize: handleEventUpdate,
     selectable: true,
 
-    selectable: (id) => {
-      return id.getDay() === 0 || id.getDay() === 6;
-    },
+
     eventContent:(items) => {
       return(<>
         <div className="fc-event-title">{items.event.title}</div>
@@ -81,21 +84,40 @@ function CallenderContent() {
         
       </>);
     },
+<<<<<<< HEAD
+    eventContent:(items) => {
+      return(<>
+        <div className="fc-event-title">{items.event.title}</div>
+        <div className="fc-event-amount">{items.event.amount}</div>
+        
+      </>);
+    },
+=======
+>>>>>>> 7a37a1b5ae797eabcdfa7805662f960a1537d07e
     eventClick:(items) => {
       setSelectDate(items.event);
       
       console.log(selectDate);
+<<<<<<< HEAD
       if(updateItem == true){
 
       }
+=======
+      // if(updateItem == true){
+
+      // }
+>>>>>>> 7a37a1b5ae797eabcdfa7805662f960a1537d07e
     }
   };
   return (
     <div className="CallenderContainer">
       <div className="CallenderButton">
+<<<<<<< HEAD
         {selectedDate ? (
           <button onClick={handleEventDelete}>Delete Selected Date</button>
          ) : null}
+=======
+>>>>>>> 7a37a1b5ae797eabcdfa7805662f960a1537d07e
       </div>
 
       <div className="CallenderRow">

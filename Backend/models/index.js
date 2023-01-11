@@ -31,7 +31,7 @@ db.login = Login(sequelize, Sequelize);
 db.useBook = UseBook(sequelize, Sequelize);
 db.location = Location(sequelize, Sequelize);
 db.bookPlan = BookPlan(sequelize, Sequelize);
-db.eventDater = EventDater(sequelize, Sequelize);
+db.eventDater = EventDater(sequelize, Sequelize, db.bookPlan);
 // test('Connection check if server is functional as inteded', () =>
 //     expect(
 //     )
