@@ -2,28 +2,32 @@ import axios from "axios";
 const BACKEND_URL = 'http://localhost:8900/';
 
 const retrieveItems = async () => {
-    let response = await axios.get(BACKEND_URL + "useBook").then(response => {
+    let response = await axios.get(`${BACKEND_URL}eventDater`).then(response => {
         return response.data;
     });
     return response;
 }
 const addItems = async (items) => {
-    let response = await axios.post(BACKEND_URL + "useBook", items, {
-        //need to add this 
+    let response = await axios.post(`${BACKEND_URL}eventDater`, items, {
         header: {
             'Content-Type': 'multipart/form-data'
-
+            
         }
-    })
-        .then(response => {
-            return response.data;
-        });
+    }).then(response => {
+        return response.data;
+    });
+    return response;
 }
-const updateItem = async(items) => {
-    try {
-        let response = await
+
+const removeItems = async(id) =>
+{
+    try{
+        const response = await axios.delete(`${BACKEND_URL}eventDater/${id}`);
+        return response.data;
+    }catch(error) {
+        throw error;
     }
-}
+};
 // const updateItems = async (items) => {
 //     //first need create a update that will basicly update the the righ post do it as id
 
@@ -41,6 +45,5 @@ const updateItem = async(items) => {
 export {
     retrieveItems,
     addItems,
-    updateItems,
     removeItems
 }

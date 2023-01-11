@@ -1,12 +1,13 @@
 /* .CallenderContainer {
+
     width: auto;
-    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 3rem 2rem;
-
-}
+    margin: 1rem 2em;
+    
+} */
+/*
 .CallenderRow {
     padding-left: 25%;
     padding-right: 25%;
@@ -22,6 +23,7 @@
   font-display: right;
 
 }
+*/
 
 @media (max-width: 600) {
     .CallenderContainer{
@@ -30,4 +32,4 @@
         display: absolute;
     }
     
-} */
+} 

@@ -1,11 +1,24 @@
 import axios from "axios";
 const BACKEND_URL = 'http://localhost:8900/';
-const retrieveLocationDate = async(datePlan) =>
+const retrieveLocationDate = async(items) =>
 {
-    let response = await axios.get(`${BACKEND_URL}eventDater`)
+    let response = await axios.get(`${BACKEND_URL}eventDater` , items)
     .then(response => {return response.data;
     });
     return response;
+    
+};
+
+const addDate = async(items) => {
+    let response = await axios.post(`${BACKEND_URL}eventDater`, items, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }).then(response => {
+        return response.data;
+    });
+    return response;
+        
     
 };
 const deleteLocationDate = async(id) =>
@@ -19,5 +32,6 @@ const deleteLocationDate = async(id) =>
 };
 export {
     deleteLocationDate,
+    addDate,
     retrieveLocationDate
 }

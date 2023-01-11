@@ -2,16 +2,49 @@ import React, {useState, useEffect} from "react";
 import "./Searchbar.css";
 import { Button } from "react-bootstrap";
 import { filterItem } from "../../action/filterSearch";
-
+import CallenderContent from "../CallenderContent/CallenderContent";
+import { addItems } from "../../action/setAction";
 function Searchbar() {
     const[locationQuery, setLocationQuery] = useState([]);
-    const[id , setId] = useState("");
+    const[success, setSuccess] = useState(false);
+    const[error, setError] = useState(false);
+    const[id , setId] = useState("");   
     const[destination, setDestination] = useState("");
-    const[date, setDate] = useState("");
+    const[startDate, setStartDate] = useState("");
+    const[endDate, setEndDate] = useState("");
     const[amount, setAmount] = useState(0);
 
 //  formatDefault = filterItem(DATAinput)
+    const postDataSubmitOnBackEnd = async(items) => {
+    console.log(items);
+       try{
+        let response = await addItems(items);
+        if(response) {
+            setSuccess(true);
+        }
+       } 
+       catch(e){
+            setError(e.message);
+       }
 
+
+
+    }
+    const sumbitAllData = async(e) => {
+        setSuccess(false);
+        if(destination && startDate && endDate && amount){
+            let items = {
+                id: id,
+                Destination: destination,
+                StartDate: startDate,
+                EndDate: endDate,
+                Amount: amount,
+
+            };
+            postDataSubmitOnBackEnd(items);
+        }
+
+    }
 
 
     return(
@@ -21,27 +54,29 @@ function Searchbar() {
                 <h1>
                     Plan your Holiday today!!
                 </h1>
-                <label htmlFor="city">Search your destination:
+                <label htmlFor="city">What Location Your Planning to travel:
                 </label>
                 <div className="input flex">
-                    <input type ="text" placeholder="Enter your destination"value={"Stuff"} />
+                    <input required type ="text" onChange={(e) => setDestination(e.target.value)} />
                 </div>
             </div>
             <div className="row">
-                <label>Check Offers</label>
-                <input type="date" value={"stuff"} />            
+                <label>Start Date:</label>
+                <input required type="date" onChange={(e) => setStartDate(e.target.value)} />            
             </div>
-                
             <div className="row">
-            <label htmlFor="city">Search your destination:
-                </label>
+                <label>End Date:</label>
+                <input required type="date" onChange={(e) => setEndDate(e.target.value) } />            
+            </div>
+            <div className="row">
                 <div className="input flex">
-                    <input type ="price" placeholder="How much money you planning to take" value={"stuff"} />
+                    <label>"How much money you planning to take"</label>
+                    <input required type ="price" placeholder="£"  onChange={(e) => setAmount(e.target.value)} />
                 </div> 
             </div>
             <div className="button-row"> 
                 <div className="button-container">
-                    <Button variant="contained" onClick={"stuff"}>
+                    <Button variant="contained" onClick={sumbitAllData}>
                         Submit
                     </Button>
                 </div>

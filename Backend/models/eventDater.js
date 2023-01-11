@@ -1,16 +1,19 @@
-module.exports = (sequelize, Sequelize) => {
+
+
+module.exports = (sequelize, Sequelize, bookPlan) => {
 
     const EventDater = sequelize.define("eventDater",
     {
-        id:{
+        eventDater_id:{
             type: Sequelize.INTEGER,
             primaryKey:true,
-            field: 'id'
+            field: 'eventDater_id',
+
         },
         Destination: {
             type: Sequelize.STRING
         },
-        Date: {
+        StartDate: {
             type: Sequelize.DATE
         },
         EndDate: {
@@ -26,9 +29,7 @@ module.exports = (sequelize, Sequelize) => {
         tableName: 'eventDater'
     }
     );
-
-    // Login.belongsTo(useBook,
-    //     {foreignKey: 'useBook_id'});
-
+    EventDater.belongsTo(bookPlan, 
+        {foreignKey: 'bookPlan_id'});
     return EventDater;
 };

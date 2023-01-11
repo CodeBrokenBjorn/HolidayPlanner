@@ -32,45 +32,15 @@ const updateItems = async(items) => {
     return response;
 }
 
-const deleteItems = async(index, queryItems) => {
-    console.log(queryItems);
-    // let deleteItems = [...(items || []).slice(0, index), ...(items || []).slice(index + 1)]; 
-//    let deleteItems = [...(queryItems || []).slice(0, id), ...(queryItems || []).slice(id + 1)];
-    //const deleteItems = (queryItems || []).filter(queryItem => queryItem.id !== id);  
-    queryItems.splice(index, 1);  
-    let fulterId = queryItems.map(index => index.id);
-    
-    let deleteByIDs = queryItems.map(id => id.index);
-    return axios
-        .delete(`${BACKEND_URL}bookPlan`, {data: { id: fulterId}})
-        .then(response => {
-            return response.data;
-        
-        });
-   
+const deleteItems = async(id) =>
+{
+    try{
+        const response = await axios.delete(`${BACKEND_URL}bookPlan/${id}`);
+        return response.data;
+    }catch(error) {
+        throw error;
+    }
 };
-// const addNewItem = (event, counter) => {
-//     event.preventDefault();
-//     if(!title || body) {
-//         return;
-//     }
-//     const[storeQuery, setStoreQuery] = useState([
-//         {
-//             items: {
-//                 id: id,
-//                 title: title,
-//                 body: body,
-//             },
-//         },
-//     ]); 
-// }
-// function handleSubmit(items) {
-// if(!items) return;
-// const itemsAdd = {
-//     id:null,
-//     text: items,
-// };
-// }
 export {
     retrieveAllItems,
     addNewItems,
