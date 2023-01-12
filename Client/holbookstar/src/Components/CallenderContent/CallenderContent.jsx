@@ -60,7 +60,7 @@ function CallenderContent() {
     }));
     console.log(retrieveEvent);
     setLocationQuery(retrieveEvent);
-    setRefreshPage(false);
+    
     });
   }, [refreshPage]);
 
@@ -82,11 +82,8 @@ function CallenderContent() {
     },
     eventClick:(items) => {
       setSelectDate(items.event);
-      
       console.log(selectDate);
-      // if(updateItem == true){
 
-      // }
     }
   };
   return (
@@ -96,6 +93,7 @@ function CallenderContent() {
 
       <div className="CallenderRow">
         <div className="CallenderWrapper">
+        
         <button onClick={(e) => handleEventDelete(selectDate)}>Delete Selected Date</button>
           <h2> Your Holiday Dates</h2>
           <FullCalendar height="700px" {...CallenderQuery} />
