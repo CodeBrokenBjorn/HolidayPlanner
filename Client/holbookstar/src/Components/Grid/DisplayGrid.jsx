@@ -7,6 +7,7 @@ import {
   Badge,
   Card,
   Carousel,
+  Form,
 } from "react-bootstrap";
 import "./DisplayGrid.css";
 
@@ -19,7 +20,7 @@ import ModelAdd from "../../Model/ModelAdd";
 import ModelUpdate from "../../Model/ModelUpdate";
 import { useRef } from "react";
 function DisplayGrid() {
-  const[retrieveContent, setRetrieveContent] = useState(false);
+  const[retrieveContent, setRetrieveContent] = useState(true);
   const [countThirunning, setCountThirunning] = useState();
   const [queryItems, setQueryItems] = useState([]);
   const [id, setId] = useState("");
@@ -35,6 +36,7 @@ function DisplayGrid() {
   }
 
   function handleDelete(selected) {
+    console.log("fucker")
     setId(selected)
     setRetrieveContent(true)
     let temp = queryItems.filter(item => item.id !== selected);
@@ -48,36 +50,23 @@ function DisplayGrid() {
     setCurrentSlide(selectedIndex);
   }
 
-  const handleSubmit =() => {
-    async function collectData() {
-      
-      retrieveAllItems().then((items) => {
-        if (!items) {
-          console.log(countThirunning + 1);
-          
-          
-        }
-        setQueryItems(items);
-        //setCountThirunning([...countThirunning, newlist]);
-        console.log(items);
-        
-      });
-      
-    }
-    collectData();
-  }
   useEffect(() => {
     async function collectData() {
       
-      retrieveAllItems().then((items) => {
-        setQueryItems(items);
-        setRetrieveContent(false);
-        
-      });
+      console.log("bob was here test");
+      const data = await retrieveAllItems();
+      setQueryItems(data)
+      setRetrieveContent(false);
 
     }
-    collectData();
-  }, [retrieveContent, queryItems.id]);
+    if (retrieveContent)
+    {
+
+      collectData();
+    }
+
+    
+  }, [retrieveContent]);
 
   return (
 
@@ -87,18 +76,26 @@ function DisplayGrid() {
       <ModelAdd />
     <Container fluid="md">
       <Carousel ref={carousel} activeIndex={currentSlide} onSelect={handleSelect} className="carousel-design">
-        {queryItems.map(({id, title, body }, index) => {
+        {queryItems.map(({id, title, body, images }, index) => {
           return (
             <Carousel.Item key={index}>
             <h3>{title}</h3>
+            //accpet = "image/png, image/jpeg " "
+            <Form.Control
+            type="file"
+            onChange={e => setImage(e.target.file[0])}
+            required/>
+            
               <div className="p-15">
                 <Container fluid="md">
                   <Row className="justify-content-md-center">
                     <Col lg="6">
                       <Card lg={{ maxWidth: 345 }}>
-                        {/* {images.map((image) => (
+                        {ImageTrue: 
+                        {images.map((image) => (
                           <Card.Img variant="left" src={image} />
-                        ))} */}
+                          ))}
+                        }
                         <Card.Body>
                           <Card.Title>{title}</Card.Title>
                           <Card.Text>{body}</Card.Text>
