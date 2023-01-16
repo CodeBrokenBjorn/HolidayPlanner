@@ -78,13 +78,11 @@ getByEndDate = async (req, res) => {
 getById = async (req, res) => {
   const id = req.params.id;
   try {
-    const eventDater = await EventDater.findByPk(id, 
-        {include: [{model: bookPlan, required: true}]}
-        );
-    if ((eventDater = null || eventDater.length == 0)) {
-      throw new Error("Error you can't find Users ID" + id);
-    }
-    res.status(200).json(eventDater);
+    const eventDaters = await EventDater.findByPk(id);
+      if ((eventDaters === null || eventDaters.length === 0)) {
+        throw new Error("Error you can't find Users ID" + id);
+      }
+    res.status(200).json(eventDaters);
   } catch (error) {
     utilities.formatErrorResponse(res, 400, error.message);
   }
@@ -117,19 +115,34 @@ create = async (req, res) => {
 update = async (req, res) => {
   const id = req.params.id;
 
-  const eventDater = {
-    Destination: req.body.Destination,
-    StartDate: req.body.StartDate,
-    EndDate: req.body.EndDate,
-    Amount: req.body.Amount,
-    bookPlan_Id: req.body.bookPlan_Id
-  };
+  if(!id) {
+    return res.status(400).send({error: 'Missing id'});
+  }
+
   try {
+    const eventDaterExists = await EventDater.findOne({
+      where: {
+        id:id
+      }
+    });
+    if(!eventDaterExists) {
+      return res.status(404).send({error: 'EventDater not found or exist'});
+
+    }
+    const eventDater = {
+      
+      Destination: req.body.Destination,
+      StartDate: req.body.StartDate,
+      EndDate: req.body.EndDate,
+      Amount: req.body.Amount,
+      bookPlan_Id: req.body.bookPlan_Id
+    };
     if (
       (id =
         null ||
         eventDater.Destination == null ||
-        eventDater.Date == null ||
+        eventDater.StartDate == null ||
+        eventDater.EndDate == null ||
         eventDater.Amount == null
         || eventDater.bookPlan_Id == null)
     ) {
@@ -141,9 +154,10 @@ update = async (req, res) => {
       },
     });
     res.status(200).json(eventDater);
-  } catch (error) {
+  }catch (error) {
     utilities.formatErrorResponse(res, 400, error.message);
   }
+ 
 };
 
 deleting = async (req, res) => {

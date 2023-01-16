@@ -104,7 +104,8 @@ update = async (req, res) => {
     
     const bookPlan = {
         title: req.body.title,
-        body: req.body.body
+        body: req.body.body,
+        image: req?.file?.filename === undefined ? "" :  path.join('/public/images/', req.file.filename)
     };
     try{
         if(id= null ||

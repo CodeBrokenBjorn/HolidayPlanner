@@ -1,3 +1,20 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -82,29 +99,40 @@ function CallenderContent() {
     });
   }, [refreshPage]);
 
-  const handleSubmitUpdate = async (locationQuery, itemId) => {
-    console.log(itemId);
-    debugger
-    if (itemId) {
-      const updatedLocation = locationQuery.map(item => {
-        if (item.id === itemId) {
-          return { ...item, id : itemId ,Destination: destination, StartDate: startDate, EndDate: endDate, Amount: amount }
-        } else {
-          return item;
-        }
-      });
-      setLocationQuery(updatedLocation);
-      updateModelItems(updatedLocation, itemId);
-      updateItems(updatedLocation).then(() => {
-        setRefreshPage(true);
-        setShow(false);
-      });
+const handleSubmitUpdate = (updateQuery,itemId) =>{
+if(itemId){
+
+  const updatedLocation = updateQuery.map(item => {
+    if(item.id === itemId) {
+      return {
+        id: itemId,
+        Destination: destination,
+        StartDate: startDate,
+        EndDate: endDate,
+        Amount: amount
+      }
     }
-  };
+    return item;
+    
+    
+  });
   
-  const updateModelItems = async (items, itemId) => {
+  console.log(updatedLocation);
+  updateModelItems(updatedLocation, itemId);
+  setShow(false);
+  
+}
+
+}
+
+    
+
+
+  const updateModelItems = async(item, itemId) => {
     try {
-      const response = await updateEvent(items,itemId, { Destination: destination, StartDate: startDate, EndDate: endDate, Amount: amount });
+      console.log(item);
+      setLocationQuery(item);
+      const response = await updateEvent(item, itemId);
       if (response) {
         setSuccess(true);
         setRefresh(true);
@@ -227,7 +255,7 @@ function CallenderContent() {
                         ></input>
                       </div>
                       <div className="md:w-2/3">
-                        <button onClick={() => handleSubmitUpdate(locationQuery, selectDate.id)}>
+                        <button onClick={(e) => handleSubmitUpdate(locationQuery, itemId)}>
                           Sumbit Change
                         </button>
                       </div>

@@ -28,6 +28,7 @@ function DisplayGrid() {
   const [body, setBody] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [images, setImages] = useState(null);
 
   const carousel = useRef();
 
@@ -71,8 +72,7 @@ function DisplayGrid() {
   return (
 
     <div className="DisplayGrid">
-      <h1>"Tx"</h1>
-      <h1>{queryItems.items}</h1>
+      <h1>Add your Amazing Holiday Plans</h1>
       <ModelAdd />
     <Container fluid="md">
       <Carousel ref={carousel} activeIndex={currentSlide} onSelect={handleSelect} className="carousel-design">
@@ -80,22 +80,22 @@ function DisplayGrid() {
           return (
             <Carousel.Item key={index}>
             <h3>{title}</h3>
-            //accpet = "image/png, image/jpeg " "
-            <Form.Control
+            {/* //accpet = "image/png, image/jpeg " " */}
+            {/* <Form.Control
             type="file"
-            onChange={e => setImage(e.target.file[0])}
-            required/>
+            onChange={e => setImages(e.target.file[0])}
+            required/> */}
             
               <div className="p-15">
                 <Container fluid="md">
                   <Row className="justify-content-md-center">
                     <Col lg="6">
                       <Card lg={{ maxWidth: 345 }}>
-                        {ImageTrue: 
-                        {images.map((image) => (
-                          <Card.Img variant="left" src={image} />
+{/*                         
+                        {images.map((images) => (
+                          <Card.Img variant="left" src={images} />
                           ))}
-                        }
+                        } */}
                         <Card.Body>
                           <Card.Title>{title}</Card.Title>
                           <Card.Text>{body}</Card.Text>
@@ -109,7 +109,7 @@ function DisplayGrid() {
                           <ModelUpdate/>
                             </div>
                           </Card.Text>
-                          <h1><ModelUpdate /></h1>
+                   
                           <button onClick={openModal}>Add Update<ModelUpdate/></button>
                           {modalOpen && <ModelUpdate />}
                         </Card.Body>

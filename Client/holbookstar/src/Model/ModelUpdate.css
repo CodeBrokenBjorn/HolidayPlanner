@@ -1,0 +1,29 @@
+.Modal-Body {
+    width: clamp(50%, 700px, 70%);
+    height: min(50%, 300px);
+
+    margin: auto;
+    padding: 0 2rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form-control {
+    text-align: center;
+    width: 50%;
+}
+.Modal-Container{
+    justify-content: center;
+}
+.Model-Row {
+    padding: 1 2em;
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+
+}
+.Model-Body {
+    margin-left: 25%;
+    margin-right: 25%;
+}

@@ -55,12 +55,6 @@ function Searchbar() {
 
 
     }
-    //Retrieve the value first...
-    // create a drop down select 
-    // map the array
-    // select id by it's value when the value bassicly matches it retrieve all existed data
-    //lable of what you input in there so what you can see and do
-    // create a select by it's value emp 5.value = whatever...
    
     optionsBook = [
         {value: null , setMessage : "Select the cards"},

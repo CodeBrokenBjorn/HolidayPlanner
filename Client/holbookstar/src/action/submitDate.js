@@ -8,7 +8,16 @@ const retrieveLocationDate = async(items) =>
     return response;
     
 };
-
+const updateEvent = async(items, itemId) => {
+    let response = await axios.put(`${BACKEND_URL}eventDater/${itemId}`, items ,{
+        headers: {
+            'Content-Type': 'application/json'
+        } 
+    }).then(response => {
+        return response.data;
+    });
+    return response;
+};
 const addDate = async(items) => {
     let response = await axios.post(`${BACKEND_URL}eventDater`, items, {
         headers: {
@@ -31,6 +40,7 @@ const deleteLocationDate = async(id) =>
     }
 };
 export {
+    updateEvent,
     deleteLocationDate,
     addDate,
     retrieveLocationDate
