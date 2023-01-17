@@ -96,8 +96,9 @@ function DisplayGrid() {
   return (
     <div className="DisplayGrid">
       <h1>Add your Amazing Holiday Plans</h1>
-      <button onClick={handleModel}>Add Holiday</button>
+      <Button variant="dark" size="lg" onClick={handleModel}>Add Holiday</Button>
       <Container fluid="md">
+                <div className="Carousel-content">
         <Carousel
           ref={carousel}
           activeIndex={currentSlide}
@@ -118,6 +119,7 @@ function DisplayGrid() {
               );
             } else {
               return (
+
                 <Carousel.Item key={index}>
                   <div className="p-15">
                     <Container fluid="md">
@@ -135,9 +137,9 @@ function DisplayGrid() {
                             <Card.Body>
                               <Card.Title>{title}</Card.Title>
                               <Card.Text>{body}</Card.Text>
-                              <button onClick={(e) => handleDelete(id, index)}>
+                              <Button variant="dark" size="mg" onClick={(e) => handleDelete(id, index)}>
                                 DELETE
-                              </button>{" "}
+                              </Button>{" "}
                             </Card.Body>
                           </Card>
                         </Col>
@@ -149,6 +151,7 @@ function DisplayGrid() {
             }
           })}
         </Carousel>
+                </div>
       </Container>
       <div className="modelWithings">
         <Modal
@@ -194,7 +197,7 @@ function DisplayGrid() {
                     />
                   </div>
 
-                  <Button variant="dark" size="ls" onClick={submitModelItems}>
+                  <Button variant="dark" size="lg" onClick={submitModelItems}>
                     Add item
                   </Button>
                 </div>
