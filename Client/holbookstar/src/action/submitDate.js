@@ -31,8 +31,7 @@ const addDate = async(items) => {
     
 };
 const deleteLocationDate = async(id) =>
-{
-    try{
+{    try{
         const response = await axios.delete(`${BACKEND_URL}eventDater/${id}`);
         return response.data;
     }catch(error) {

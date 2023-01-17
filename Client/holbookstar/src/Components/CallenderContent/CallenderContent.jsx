@@ -19,33 +19,23 @@ import {
 import { Alert } from "react-bootstrap";
 function CallenderContent() {
   const [refreash, setRefresh] = useState(true);
-  const [updateQuery, setUpdateQuery] = useState([]);
+  const[formError, setFormError] = useState(false);
   const [locationQuery, setLocationQuery] = useState([]);
   const [selectUpdate, setSelectUpdate] = useState(false);
   const [refreshPage, setRefreshPage] = useState(false);
   const[itemId , setItemId] = useState(0);
   const [selectedDate, setSelectedDate] = useState([]);
-  const[selectItemUpdate, setSelectItemUpdate] = useState(null);
   const [error, setError] = useState(null);
   const [events, setEvents] = useState([]);
-  const [id, setId] = useState(0);
-  const[start, setStart] = useState("");
-  const[end, setEnd] = useState("");
-  const [body, setBody] = useState("");
-  const [image, setImage] = useState(null);
-  const [deleteItem, setDeleteItem] = useState(false);
   const [selectDate, setSelectDate] = useState([]);
   const [queries, setQueries] = useState([]);
   const [destination, setDestination] = useState("");
-  const [dateSelected, setdateSelected] = useState(false);
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
   const [amount, setAmount] = useState(0);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [bookPlan_id, setBookPlan_id] = useState(0);
   const [show, setShow] = useState(false);
   const [success, setSuccess] = useState(false);
+
   const handleEventDelete = async (items, selectedDate) => {
     try {
       await deleteLocationDate(items.id);
@@ -84,7 +74,6 @@ function CallenderContent() {
 
   const handleSubmitUpdate = async (locationQuery, itemId) => {
     console.log(itemId);
-    debugger
     if (itemId) {
       const updatedLocation = locationQuery.map(item => {
         if (item.id === itemId) {
@@ -134,7 +123,6 @@ function CallenderContent() {
   };
   return (
     <div className="CallenderContainer">
-      <div className="CallenderButton"></div>
       <div className="CallenderRow">
         <div className="CallenderWrapper">
           {selectUpdate && (
@@ -201,8 +189,18 @@ function CallenderContent() {
                           type="date"
                           defaultValue={start}
                           onChange={(e) => setStartDate(e.target.value)}
+                          onblur={()=> {
+                            if(start > end){
+                              setFormError(true);
+                            }
+                            else {
+                              setFormError(false);
+                            }
+                          }
+                          }
                         />
                       </div>
+                      {formError && <p className="error-message">Start date can't able to be greater than end date!</p>}
 
                       <div className="md:w-2/3">
                         <h1>End Date</h1>
@@ -231,24 +229,6 @@ function CallenderContent() {
                           Sumbit Change
                         </button>
                       </div>
-                      {/* <div className="md:w-2/3">
-                <input
-                  required
-                  className="style-row"
-                  id="role"
-                  type="text"
-                  defaultValue={destination}
-                ></input>
-              </div>
-              <div className="md:w-2/3">
-                <input
-                  required
-                  className="style-row"
-                  id="role"
-                  type="text"
-                  defaultValue={destination}
-                ></input>
-              </div> */}
                     </div>
                   </form>
                 </Modal.Body>

@@ -1,7 +1,6 @@
 import { React } from "react";
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Model from "../../Model/Model";
 import "./NavigationBar.css";
 
 
@@ -17,18 +16,13 @@ function NavigationBar() {
             <Navbar.Toggle aria-controls="navbar-toggle" />
             <Navbar.Collapse id="navbar-toggle">
               <Nav className="me-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="home">Home</Nav.Link>
                 <Nav.Link href="Search">Plan Booking</Nav.Link>
                 <Nav.Link href="Callender">View Callender</Nav.Link>
                 <Nav.Link href="content">Add Content</Nav.Link>
                 <Nav.Link href="ContactPage">Contact us</Nav.Link>
               </Nav>
             </Navbar.Collapse>
-          </span>
-          <span>
-            <Model />
-            
-            {/* <h2 style={{ color: "white" }}>Example login goes here</h2> */}
           </span>
         </Container>
       </Navbar>

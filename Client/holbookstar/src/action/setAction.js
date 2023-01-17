@@ -28,22 +28,19 @@ const removeItems = async(id) =>
         throw error;
     }
 };
-// const updateItems = async (items) => {
-//     //first need create a update that will basicly update the the righ post do it as id
-
-//     let response = await axios.put(`${BACKEND_URL}useBook`, items,){
-//         if(response <= items){
-//             console.log("it work");
-//         }
-
-//     }
-
-// }
-// const removeItems = async (items) => {
-//     const deleteIrtem = [...items.slice(0, count)]
-// }
+const updateEvent = async(items, itemId) => {
+    let response = await axios.put(`${BACKEND_URL}eventDater/${itemId}`, items ,{
+        headers: {
+            'Content-Type': 'application/json'
+        } 
+    }).then(response => {
+        return response.data;
+    });
+    return response;
+};
 export {
     retrieveItems,
+    updateEvent,
     addItems,
     removeItems
 }

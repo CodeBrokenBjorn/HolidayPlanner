@@ -1,15 +1,11 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import { Carousel } from "react-bootstrap";
 import imageWallpaper from "../../image/imageWallpaper.png";
 import imageWallpaper2 from "../../image/imageWallpaper2.png";
-import wallpaper1 from "../../image/wallpaper1.jpg";
-import wallpaper2 from "../../image/wallpaper2.png";
-import wallpaper3 from "../../image/wallpaper3.png";
 import "./Hero.css";
 function Hero() {
   // NO! STOP BREAKING STUFF
-  //no , you
+  //no , you I am just trying fix this me :(
   return (
     <div>
       <div className="  p-7 text-center ">
@@ -26,15 +22,9 @@ function Hero() {
                 <Carousel.Caption className="Carousel-Item ">
                   <h1>Discover Your Story</h1>
                   <p>
-                    With unique experiance that you will remeber for rest of
-                    your life!
+                  Journey to the Unforgettable: Your Ultimate Guide to Planning the Perfect Trip
                   </p>
-                  {/* <Button
-                variant="primary"
-                onClick={() => console.log("user clicked")}
-              >
-                
-              </Button> */}
+          
                 </Carousel.Caption>
               </div>
             </Carousel.Item>
@@ -45,7 +35,10 @@ function Hero() {
                 alt="Bob"
               />
               <Carousel.Caption>
-                <h1>Be always prepared</h1>
+                <h1>Suprise everyone</h1>
+                <p>
+                Unleash the Adventure: The Ultimate Guide to Planning Your Next Vacation
+                </p>
               </Carousel.Caption>
             </Carousel.Item>
         </Carousel>

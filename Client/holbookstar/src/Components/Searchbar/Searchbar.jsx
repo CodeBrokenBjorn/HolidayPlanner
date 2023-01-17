@@ -1,21 +1,14 @@
 import React, {useState, useEffect} from "react";
 import "./Searchbar.css";
 import { Button } from "react-bootstrap";
-import CallenderContent from "../CallenderContent/CallenderContent";
 import { addItems } from "../../action/setAction";
 import {retrieveAllItems} from "../../action/submitModelAction";
 import Select from 'react-select';
 
 function Searchbar() {
-    const[locationQuery, setLocationQuery] = useState([]);
     const[success, setSuccess] = useState(false);
     const[error, setError] = useState(false);
-    const[assignBook, setAssignBook] = useState([]);
-    const[bookId, setBookId] = useState("");
-    const[title, setTitle] = useState("");
-    const[body, setBody] = useState("");
-    const[image, setImage] = useState();
-    const[id , setId] = useState("");   
+    const[assignBook, setAssignBook] = useState([]); 
     const[destination, setDestination] = useState("");
     const[startDate, setStartDate] = useState("");
     const[endDate, setEndDate] = useState("");
@@ -59,7 +52,6 @@ function Searchbar() {
     optionsBook = [
         {value: null , setMessage : "Select the cards"},
         ...assignBook.map(bob => ({
-
             value: bob.id, 
             label: (<div>{bob.title} + {bob.id} + {bob.body}</div>)
         }))
@@ -67,7 +59,6 @@ function Searchbar() {
         
     ]
     
-
     const sumbitAllData = async(e) => {
         setSuccess(false);
         if(destination && startDate && endDate && amount){

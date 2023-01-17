@@ -92,6 +92,7 @@ getById = async (req, res) => {
 // )
 create = async (req, res) => {
   const eventDater = {
+
     Destination: req.body.Destination,
     StartDate: req.body.StartDate,
     EndDate: req.body.EndDate,
@@ -130,7 +131,6 @@ update = async (req, res) => {
 
     }
     const eventDater = {
-      
       Destination: req.body.Destination,
       StartDate: req.body.StartDate,
       EndDate: req.body.EndDate,
@@ -138,9 +138,7 @@ update = async (req, res) => {
       bookPlan_Id: req.body.bookPlan_Id
     };
     if (
-      (id =
-        null ||
-        eventDater.Destination == null ||
+      (eventDater.Destination == null ||
         eventDater.StartDate == null ||
         eventDater.EndDate == null ||
         eventDater.Amount == null
@@ -155,7 +153,7 @@ update = async (req, res) => {
     });
     res.status(200).json(eventDater);
   }catch (error) {
-    utilities.formatErrorResponse(res, 400, error.message);
+    res.status(400).send({error: error.message});
   }
  
 };
