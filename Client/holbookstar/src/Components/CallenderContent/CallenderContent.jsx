@@ -19,11 +19,11 @@ import {
 import { Alert } from "react-bootstrap";
 function CallenderContent() {
   const [refreash, setRefresh] = useState(true);
-  const[formError, setFormError] = useState(false);
+  const [formError, setFormError] = useState(false);
   const [locationQuery, setLocationQuery] = useState([]);
   const [selectUpdate, setSelectUpdate] = useState(false);
   const [refreshPage, setRefreshPage] = useState(false);
-  const[itemId , setItemId] = useState(0);
+  const [itemId, setItemId] = useState(0);
   const [selectedDate, setSelectedDate] = useState([]);
   const [error, setError] = useState(null);
   const [events, setEvents] = useState([]);
@@ -47,7 +47,7 @@ function CallenderContent() {
     }
     setSelectedDate(null);
   };
-  const handleEventUpdate = () => {};
+  const handleEventUpdate = () => { };
 
   useEffect(() => {
     retrieveLocationDate().then((items) => {
@@ -58,42 +58,43 @@ function CallenderContent() {
         end: data.EndDate,
         amount: data.Amount,
       }));
-      retrieveAllItems().then((bookItems) => {
-        const retrieveBookEvent = bookItems.map((data) => ({
-          id: data.id,
-          title: data.title,
-          body: data.body,
-          image: data.image,
-        }));
-        console.log(retrieveEvent);
-        setLocationQuery(retrieveEvent);
-        // setBookPlanQuery(retrieveBookEvent);
-      });
+      console.log(retrieveEvent);
+      setLocationQuery(retrieveEvent);
     });
   }, [refreshPage]);
 
-  const handleSubmitUpdate = async (locationQuery, itemId) => {
+  const handleSubmitUpdate = async (e, locationQuery, itemId) => {
+    e.preventDefault();
     console.log(itemId);
     if (itemId) {
       const updatedLocation = locationQuery.map(item => {
         if (item.id === itemId) {
-          return { ...item, id : itemId ,Destination: destination, StartDate: startDate, EndDate: endDate, Amount: amount }
+          return item;
         } else {
           return item;
         }
       });
+
+      let updateObject = {
+        id: itemId, 
+        Destination: destination, 
+        StartDate: startDate, 
+        EndDate: endDate, 
+        Amount: amount, 
+      }
+
+      await updateEvent(updateObject);
+
       setLocationQuery(updatedLocation);
-      updateModelItems(updatedLocation, itemId);
-      updateItems(updatedLocation).then(() => {
-        setRefreshPage(true);
-        setShow(false);
-      });
+      updateModelItems(updateObject, itemId);
+      setRefreshPage(true);
+      setShow(false);
     }
   };
-  
+
   const updateModelItems = async (items, itemId) => {
     try {
-      const response = await updateEvent(items,itemId, { Destination: destination, StartDate: startDate, EndDate: endDate, Amount: amount });
+      const response = await updateEvent(items, itemId, { Destination: destination, StartDate: startDate, EndDate: endDate, Amount: amount });
       if (response) {
         setSuccess(true);
         setRefresh(true);
@@ -117,6 +118,7 @@ function CallenderContent() {
     eventClick: (locationQuery) => {
       setSelectDate(locationQuery.event);
       setItemId(locationQuery.event.id);
+      console.log(locationQuery);
       setSelectUpdate(true);
       console.log(selectDate);
     },
@@ -136,11 +138,11 @@ function CallenderContent() {
                 {" "}
                 Edit Date
               </Button>
-              <Button 
+              <Button
                 variant="dark"
                 color="success"
                 size="sm"
-              onClick={(e) => handleEventDelete(selectDate)}>
+                onClick={(e) => handleEventDelete(selectDate)}>
                 Delete Selected Date
               </Button>
             </div>
@@ -151,92 +153,92 @@ function CallenderContent() {
       </div>
 
       {locationQuery.map(({ title, start, end, amount }) => {
-        if(selectDate.title === title){
+        if (selectDate.title === title) {
           return (
-          
-              <Modal
-                className="Modal-Body"
-                size="xl"
-                show={show}
-                onHide={() => setShow(false)}
-                dialogClassName="modal-90w"
-                aria-labelledby="simple-modal-title"
-              >
-                <Modal.Header closeButton>
-                  <Modal.Title>Update Calender</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <form id="editmodel" className="w-full max-w-sm">
-                    <div className="Upload Button">
-                      <div className="md:flex md:items-center mb-3">
-                        <div className="md:w-1/3">
-                        </div>
-                        <h1>Destination</h1>
-                        <input
-                          required
-                          className="style-row"
-                          id="role"
-                          type="text"
-                          defaultValue={title}
-                          onChange={(e) => setDestination(e.target.value)}
-                        />
-                      </div>
-                      <div className="md:w-2/3">
-                        <h1>Start Date</h1>
-                        <input
-                          required
-                          className="style-row"
-                          type="date"
-                          defaultValue={start}
-                          onChange={(e) => setStartDate(e.target.value)}
-                          onblur={()=> {
-                            if(start > end){
-                              setFormError(true);
-                            }
-                            else {
-                              setFormError(false);
-                            }
-                          }
-                          }
-                        />
-                      </div>
-                      {formError && <p className="error-message">Start date can't able to be greater than end date!</p>}
 
-                      <div className="md:w-2/3">
-                        <h1>End Date</h1>
-                        <input
-                          required
-                          className="style-row"
-                          type="date"
-                          defaultValue={end}
-                          onChange={(e) => setEndDate(e.target.value)}
-                        />
+            <Modal
+              className="Modal-Body"
+              size="xl"
+              show={show}
+              onHide={() => setShow(false)}
+              dialogClassName="modal-90w"
+              aria-labelledby="simple-modal-title"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Update Calender</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <form id="editmodel" className="w-full max-w-sm">
+                  <div className="Upload Button">
+                    <div className="md:flex md:items-center mb-3">
+                      <div className="md:w-1/3">
                       </div>
-
-                      <div className="md:w-2/3">
-                        <h1>Amount</h1>
-                        <input
-                          required
-                          className="style-row"
-                          id="role"
-                          type="text"
-                          defaultValue={amount}
-                          onChange={(e) => setAmount(e.target.value)}
-                        ></input>
-                      </div>
-                      <div className="md:w-2/3">
-                        <button onClick={() => handleSubmitUpdate(locationQuery, selectDate.id)}>
-                          Sumbit Change
-                        </button>
-                      </div>
+                      <h1>Destination</h1>
+                      <input
+                        required
+                        className="style-row"
+                        id="role"
+                        type="text"
+                        defaultValue={title}
+                        onChange={(e) => setDestination(e.target.value)}
+                      />
                     </div>
-                  </form>
-                </Modal.Body>
-              </Modal>
-        
+                    <div className="md:w-2/3">
+                      <h1>Start Date</h1>
+                      <input
+                        required
+                        className="style-row"
+                        type="date"
+                        defaultValue={start}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        onblur={() => {
+                          if (start > end) {
+                            setFormError(true);
+                          }
+                          else {
+                            setFormError(false);
+                          }
+                        }
+                        }
+                      />
+                    </div>
+                    {formError && <p className="error-message">Start date can't able to be greater than end date!</p>}
+
+                    <div className="md:w-2/3">
+                      <h1>End Date</h1>
+                      <input
+                        required
+                        className="style-row"
+                        type="date"
+                        defaultValue={end}
+                        onChange={(e) => setEndDate(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="md:w-2/3">
+                      <h1>Amount</h1>
+                      <input
+                        required
+                        className="style-row"
+                        id="role"
+                        type="text"
+                        defaultValue={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                      ></input>
+                    </div>
+                    <div className="md:w-2/3">
+                      <button onClick={(e) => handleSubmitUpdate(e, locationQuery, itemId)}>
+                        Sumbit Change
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </Modal.Body>
+            </Modal>
+
           );
         }
-        
+
       })}
     </div>
   );

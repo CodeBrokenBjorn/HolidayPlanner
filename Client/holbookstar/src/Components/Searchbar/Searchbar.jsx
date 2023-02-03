@@ -15,8 +15,6 @@ function Searchbar() {
     const[amount, setAmount] = useState(0);
     const[bookPlan_id , setBookPlan_id] = useState("");
     var optionsBook = {};
-
-//  formatDefault = filterItem(DATAinput)
     useEffect(() => 
     {
         async function collectBook() {
@@ -58,23 +56,37 @@ function Searchbar() {
 
         
     ]
+
     
     const sumbitAllData = async(e) => {
         setSuccess(false);
-        if(destination && startDate && endDate && amount){
-            let items = {
-                Destination: destination,
-                StartDate: startDate,
-                EndDate: endDate,
-                Amount: amount,
-                bookPlan_id: bookPlan_id,
         
+        if(destination && startDate && endDate && amount){
+             if(typeof destination === "string" && typeof amount === "number") {
+                let items = {
+                    Destination: destination,
+                    StartDate: startDate,
+                    EndDate: endDate,
+                    Amount: amount,
+                    bookPlan_id: bookPlan_id,
+                    
+                };
+                console.log(items);
+                postDataSubmitOnBackEnd(items);
+                alert("Inserted");
+                return;
+            }
+        else{
 
-            };
-            console.log(items);
-            postDataSubmitOnBackEnd(items);
+            
+            alert("Error please check the console.")
+            console.error("Error what you inserted doesn't work or does not meet requirements");
+            return;
         }
-
+            
+        }
+            
+            
     }
 
 

@@ -18,7 +18,7 @@ getByTitle = async (req, res)=> {
     try{
         const bookPlan = await BookPlan.findAll(
             {where:  { Title: Title}});
-        if(bookPlan.length== 0){
+        if(bookPlan.length === 0){
             throw new Error("The Iteam Title has not been found Error");
         }
         res.status(200).json(bookPlan);
@@ -35,7 +35,7 @@ getByBody = async(req, res) => {
     try{
         const bookPlan = await BookPlan.findAll(
             {where: {Body: Body}});
-        if(bookPlan.length == 0){
+        if(bookPlan.length === 0){
             throw new Error("Unable to detect specific value");
 
         }
@@ -67,7 +67,7 @@ getById = async (req, res) => {
     const id = req.params.id;
     try{
         const bookPlan = await BookPlan.findByPk(id);
-        if(bookPlan = null || bookPlan.length ==0){
+        if(bookPlan === null || bookPlan.length === 0){
             throw new Error("Error you can't find Users ID" + id);
 
         }
@@ -78,11 +78,8 @@ getById = async (req, res) => {
 
     }
 }
-// test('Connection check if server is functional as inteded', () =>
-//     expect()
-// )
 create = async (req, res) => {
-    const bookPlan = {
+    let bookPlan = {
         title: req?.body?.title,
         body: req?.body?.body,
         image: req?.file?.filename === undefined ? "" :  path.join('/public/images/', req.file.filename)
@@ -91,7 +88,9 @@ create = async (req, res) => {
         if(bookPlan.title==null || bookPlan.body==null || bookPlan.image==null){
             throw new Error("Esseinatial fields missing");
         }
-        await BookPlan.create(bookPlan);
+        const bplan = await BookPlan.create(bookPlan);
+        console.log()
+        bookPlan.id = bplan.id;
         res.status(201).json(bookPlan);
     }
     catch(error){
@@ -102,13 +101,13 @@ create = async (req, res) => {
 update = async (req, res) => {
     const id = req.body.id;
     
-    const bookPlan = {
+    let bookPlan = {
         title: req.body.title,
         body: req.body.body,
         image: req?.file?.filename === undefined ? "" :  path.join('/public/images/', req.file.filename)
     };
     try{
-        if(id= null ||
+        if(id== null ||
             bookPlan.title==null ||
             bookPlan.body==null){
                 throw new Error("Missing Essential Fields");

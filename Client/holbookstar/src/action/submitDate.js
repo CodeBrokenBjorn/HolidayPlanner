@@ -8,12 +8,9 @@ const retrieveLocationDate = async(items) =>
     return response;
     
 };
-const updateEvent = async(items, itemId) => {
-    let response = await axios.put(`${BACKEND_URL}eventDater/${itemId}`, items ,{
-        headers: {
-            'Content-Type': 'application/json'
-        } 
-    }).then(response => {
+const updateEvent = async(items) => {
+    console.log(items);
+    let response = await axios.put(`${BACKEND_URL}eventDater/`, items).then(response => {
         return response.data;
     });
     return response;

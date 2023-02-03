@@ -16,7 +16,7 @@ function NavigationBar() {
             <Navbar.Toggle aria-controls="navbar-toggle" />
             <Navbar.Collapse id="navbar-toggle">
               <Nav className="me-auto">
-                <Nav.Link href="home">Home</Nav.Link>
+                <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="Search">Plan Booking</Nav.Link>
                 <Nav.Link href="Callender">View Callender</Nav.Link>
                 <Nav.Link href="content">Add Content</Nav.Link>

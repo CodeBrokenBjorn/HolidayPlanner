@@ -35,6 +35,11 @@ function ContactForm() {
                                         <TextField label="Message" multiline rows={5} placeholder="Please Enter Message" variant="outlined" fullWidth required/>                                  
                                     </Grid>
                                 </Grid>
+                                <Grid container spacing={3}>
+                                    <Grid xs={32} item>
+                                        <button>Send Message</button>
+                                    </Grid>
+                                </Grid>
 
 
 

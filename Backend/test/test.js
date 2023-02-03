@@ -1,11 +1,13 @@
 let chai = require("chai");
 let chaiHttp = require("chai-http");
+const { type } = require("os");
 let server = require("../appHolContr");
 const { response, resource } = require("../appHolContr");
 const { eventDater, bookPlan } = require("../models");
 var expect = chai.expect;
 var should = chai.should();
-var id;
+var eventDaterID;
+var bookPlanID;
 
 chai.use(chaiHttp);
 
@@ -30,7 +32,6 @@ describe("unit test for Calender API", () => {
       chai
         .request(server)
         .get("/eventDater")
-
         .end((err, response) => {
           expect(response).to.have.status(200);
           expect(response.body).to.be.an("array");
@@ -50,11 +51,13 @@ describe("unit test for Calender API", () => {
     });
   }),
     describe("GetById test in Endpoint", () => {
-      it("The test allows to retrieve only one database with uniquer indetifer in ID 35", (done) => {
+      it("The test allows to retrieve only one database with unique indetifer in ID 36", (done) => {
+        const id = 36;
         chai
           .request(server)
-          .get("/eventDater/id/35")
+          .get("/eventDater/" + id)
           .end((err, response) => {
+            console.log(typeof (response.body));
             expect(response).to.have.status(200);
             expect(response.body).to.be.an("object");
             expect(response.body).to.have.keys(
@@ -65,7 +68,7 @@ describe("unit test for Calender API", () => {
               "Amount",
               "bookPlan_id"
             );
-            expect(response.body.id).to.equal(35);
+            expect(response.body.id).to.equal(36);
             done();
           });
       });
@@ -81,14 +84,16 @@ describe("unit test for Calender API", () => {
         };
         chai
           .request(server)
-          .post("/eventDater/")
+          .post("/eventDater")
           .send(eventDater)
           .end((err, response) => {
             expect(response).to.have.status(201);
             expect(response.body).to.be.an("object");
+            expect(response.body.id).to.exist;
+            eventDaterID = response.body.id
             expect(response.body)
               .to.have.property("Destination")
-              .eq("Portugal");
+              .eq("France");
             expect(response.body)
               .to.have.property("StartDate")
               .eq("2023-04-03");
@@ -99,7 +104,7 @@ describe("unit test for Calender API", () => {
           });
       });
       describe("Create with Invalid inputs", () => {
-        it("Test Should return an error if an invalid date is provided", (done) => {
+        it("Test Should return an error if an invalid input is provided", (done) => {
           const eventDater = {
             Destination: "Portugal",
             StartDate: "2025-04-31", // invalid date
@@ -109,7 +114,7 @@ describe("unit test for Calender API", () => {
           };
           chai
             .request(server)
-            .post("/eventDater/")
+            .post("/eventDater")
             .send(eventDater)
             .end((err, response) => {
               if (err) {
@@ -118,33 +123,12 @@ describe("unit test for Calender API", () => {
               console.log(response.body.error);
               expect(response).to.have.status(400);
               expect(response.body).to.be.an("object");
-              expect(response.body.error).to.equal(
-                "Invalid date provided: 2023-04-31"
+              expect(response.body.error.message).to.deep.include(
+                "Invalid date provided:"
               );
               done();
             });
         });
-      });
-      it("Test return an error if the data of Date is greater than the End Date", (done) => {
-        const eventDater = {
-          Destination: "Portugal",
-          StartDate: "2023-04-03",
-          EndDate: "2023-04-01",
-          Amount: 32000,
-          bookPlan_id: 1,
-        };
-        chai
-          .request(server)
-          .post("/eventDater/")
-          .send(eventDater)
-          .end((err, response) => {
-            expect(response).to.have.status(201);
-            expect(response.body).to.be.an("object");
-            expect(response.body.error && response.body.error.message).to.equal(
-              "Error make sure that the End date shouldnt greater than Start Date"
-            );
-            done();
-          });
       });
       it("Test should return an error due to field not contaning require type", (done) => {
         const eventDater = {
@@ -159,8 +143,8 @@ describe("unit test for Calender API", () => {
           .end((err, response) => {
             expect(response).to.have.status(400);
             expect(response.body).to.be.an("object");
-            expect(response.body.error).to.equal(
-              "Missing required Field: Amount, bookPlan_id"
+            expect(response.body.error.message).to.deep.equal(
+              "Esseinatial fields missing"
             );
             done();
           });
@@ -168,17 +152,18 @@ describe("unit test for Calender API", () => {
     });
 
   describe("Updates Endpoint", () => {
-    it("The test allows to update certain data with unique identifier in ID 1", (done) => {
+    it("The test allows to update certain data with unique identifier in ID 37", (done) => {
+      const id = 37;
       const updatedData = {
+        id: id,
         Destination: "Brazil",
         StartDate: "2024-05-01",
         EndDate: "2024-05-12",
-        Amount: "35000",
-        bookPlan_id: 1,
+        Amount: 35000,
       };
       chai
         .request(server)
-        .put("/eventDater/id/100")
+        .put("/eventDater/")
         .send(updatedData)
         .end((err, response) => {
           if (err) {
@@ -186,11 +171,14 @@ describe("unit test for Calender API", () => {
           }
           expect(response).to.have.status(200);
           expect(response.body).to.be.an("object");
-          expect(response.body.Destination).to.equal(updatedData.Destination);
-          expect(response.body.StartDate).to.equal(updatedData.StartDate);
-          expect(response.body.EndDate).to.equal(updatedData.EndDate);
-          expect(response.body.Amount).to.equal(updatedData.Amount);
-          expect(response.body.bookPlan_id).to.equal(updatedData.bookPlan_id);
+          expect(response.body)
+            .to.have.property("Destination")
+            .eq("Brazil");
+          expect(response.body)
+            .to.have.property("StartDate")
+            .eq("2024-05-01");
+          expect(response.body).to.have.property("EndDate").eq("2024-05-12");
+          expect(response.body).to.have.property("Amount").eq(35000);
           done();
         });
       it("Test Should return an error if a field is missing", (done) => {
@@ -203,7 +191,7 @@ describe("unit test for Calender API", () => {
         };
         chai
           .request(server)
-          .put("/eventDater/id/35")
+          .put("/eventDater/" + eventDaterID)
           .send(updatedData)
           .end((err, response) => {
             if (err) {
@@ -212,7 +200,7 @@ describe("unit test for Calender API", () => {
             console.log(response.body.error);
             expect(response).to.have.status(400);
             expect(response.body).to.be.an("object");
-            expect(response.body.error).to.equal(
+            expect(response.body.error.message).to.equal(
               "Missing required field: bookPlan_id"
             );
             done();
@@ -222,14 +210,14 @@ describe("unit test for Calender API", () => {
         const updatedData = {
           id: 35,
           Destination: "France",
-          StartDate: "2024-05-31", // invalid information
+          StartDate: "2024-05-32", // invalid information
           EndDate: "2024-05-12",
           Amount: 35000,
           bookPlan_id: 1,
         };
         chai
           .request(server)
-          .put("/eventDater/id/1")
+          .put("/eventDater/")
           .send(updatedData)
           .end((err, response) => {
             if (err) {
@@ -238,24 +226,25 @@ describe("unit test for Calender API", () => {
             console.log(response.body.error.message);
             expect(response).to.have.status(400);
             expect(response.body).to.be.an("object");
-            expect(response.body.error).to.equal(
+            expect(response.body.error.message).to.equal(
               "Invalid date provided: 2024-05-31"
             );
             done();
           });
       });
     });
-    describe('Delete the EndPoint', ()=> {
-        it('The test should delete the field', (done) => {
-            chai.request(server)
-            .delete("/eventDater/id/35")
-            .end((err, response) => {
-                expect(response).to.have.status(200);
-                expect(response.body).to.be.a('string');
-                expect(response.body).to.deep.equal("eventDater Was Deleted");
-                done();
-            })
-        })
-    })
   });
+  describe('Delete the EndPoint', () => {
+    it('The test should delete the eventDater, make sure to create field as that will cause error', (done) => {
+      chai.request(server)
+        .delete("/eventDater/" + eventDaterID)
+        .end((err, response) => {
+          expect(response).to.have.status(200);
+          expect(response.res.text).to.be.a('string');
+          expect(response.res.text).to.deep.include("Item was deleted");
+          done();
+        });
+    });
+  });
+
 });

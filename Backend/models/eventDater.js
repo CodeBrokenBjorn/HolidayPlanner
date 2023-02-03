@@ -8,6 +8,7 @@ module.exports = (sequelize, Sequelize, bookPlan) => {
             type: Sequelize.INTEGER,
             primaryKey:true,
             field: 'id',
+            autoIncrement: true
 
         },
         Destination: {
