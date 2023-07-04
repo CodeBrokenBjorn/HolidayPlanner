@@ -7,17 +7,18 @@ An React Application that is designed to plan the holiday by saving the informat
 
 ## Installation
 
-Install require project to work
+Install require project to work:
 
 ```bash
  For Backend
   npm install express morgan nodemon mysql2 sequelize --save
  For Frontend
-  npm install Reac bootstrap react-bootstrap axios react-dom react-router-dom
+  npm install React bootstrap react-bootstrap axios react-dom react-router-dom
     @mui/materials @testing-library/jest-dom @fullcalendar
 
-    if you have any question do message me regarding something not functioning correcly.
+   
 ```
+ If you have any question do message me regarding something not functioning correcly.
     
 ## Running Tests
 
